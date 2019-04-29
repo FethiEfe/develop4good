@@ -14,9 +14,12 @@
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
-    "react-scroll": "^1.7.11"
+    "react-scroll": "^1.7.11",
+    "redux": "^4.0.1",
+    "redux-promise-middleware": "^6.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,6 +42,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy" : "http://localhost:3001",
-  "main" : "server/index.js" 
+  "proxy": "http://localhost:3001",
+  "main": "server/index.js"
 }

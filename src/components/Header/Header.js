@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import style from "./Header.module.scss"
 import { Link } from "react-router-dom"
 import logo from "./icon.png"
-
-
-export default class Header extends Component {
+import {connect} from "react-redux"
+import {Dropdown} from "react-bootstrap"
+import {logout} from "../../redux/ducks/auth"
+class Header extends Component {
     render() {
+        console.log(this.props.auth.isLogedIn)
         return (
             <div className={style.header}>
             <Link to = "/">
@@ -28,15 +30,33 @@ export default class Header extends Component {
                         <Link to="/contact"><button>Contact</button></Link>
 
                     </div>
-
                     <div>
                         
-                        <Link to="/login"><button>Login</button></Link>
+                        {this.props.auth.isLogedIn ? 
+                            <div>
+                               
+                                <Link to = "/dev/myprofile" ><button>My Profile</button></Link>
+                                <Link to = "/dev/findproject" ><button>Find Project</button></Link>
+                                <Link to = "/dev/appliedproject" ><button>Applied Project</button></Link>
+                                <button onClick = {() => this.props.logout()}>Logout</button>
 
+                            </div>
+            
+                        
+                        
+                            
+                        :  <Link to="/login"><button>Login</button></Link> }
+                
                     </div>
+                    
 
                 </div>
             </div>
         )
     }
 }
+
+const mapStateToProps = reduxState => reduxState;
+
+
+export default connect (mapStateToProps, {logout})(Header);

@@ -7,6 +7,9 @@ import Home from "./Home/Home"
 import ErrorPage from "./ErrorPage/ErrorPage"
 import SignupDev from "./SignupDev/SignupDev"
 import SignupChar from "./SignupChar/SignupChar"
+import FindProject from "./Developer/FindProject/FindProject"
+import AppliedProject from "./Developer/AppliedProject/AppliedProject"
+import MyProfile from "./Developer/MyProfile/MyProfile"
 
 export default  (
     <Switch>
@@ -16,6 +19,9 @@ export default  (
         <Route path = "/login" component = {Login} />
         <Route path = "/signupdev" component = {SignupDev} />
         <Route path = "/signupchar" component = {SignupChar} />
+        <Route path = "/dev/findproject" component = {FindProject} />
+        <Route path = "/dev/appliedproject" component = {AppliedProject} />
+        <Route path = "/dev/myprofile" component = {MyProfile} />
         <Route path = "/"  component = {ErrorPage}/>
     </Switch>
 

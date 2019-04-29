@@ -1,34 +1,45 @@
 import React, { Component } from 'react';
 import style from "./Login.module.scss"
-import {Form, Button} from "react-bootstrap"
+import { Form, Button } from "react-bootstrap"
+import {connect} from "react-redux"
+import {login} from "../../redux/ducks/auth"
+
 class Login extends Component {
-    state = {
-      email: "",
+  constructor() {
+    super();
+    this.state = {
+      username: "",
       password: ""
     }
+  }
 
-    handleChange = (e) => {
-      this.setState({
-        [e.target.name]: e.target.value
-      })
-    }
+  handleChange = (e) => {
+    console.log(e.target.value)
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
 
 
-    handleSubmit = (e) => {
-      e.preventDefault();
-    }
+  handleSubmit = (e) => {
+   
+    const {username, password} = this.state
+    e.preventDefault();
+    this.props.login(username, password)
+  }
 
   render() {
 
     return (
       <div className={style.Login}>
 
-        <Form onSubmit = {this.state.onSubmit}>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email"  
-                                       name = "email"
-                                       value = {this.state.email}/>
+            <Form.Label>Enter Username</Form.Label>
+            <Form.Control type="username" placeholder="Enter username"
+              name="username"
+              value={this.state.email} 
+              onChange = {this.handleChange}/>
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
@@ -36,14 +47,15 @@ class Login extends Component {
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" 
-                                          name = "password"
-                                          value = {this.state.password}/>
+            <Form.Control type="password" placeholder="Password"
+              name="password"
+              value={this.state.password} 
+              onChange = {this.handleChange}/>
           </Form.Group>
 
           <div className={style.Buttons}>
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" >
               Login
             </Button>
             <Button variant="primary" type="submit">
@@ -52,8 +64,8 @@ class Login extends Component {
 
           </div>
 
-          
-      
+
+
         </Form>
 
       </div>
@@ -62,4 +74,6 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = Reduxstate => Reduxstate
+
+export default  connect (mapStateToProps, {login})(Login);
