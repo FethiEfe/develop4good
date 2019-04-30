@@ -26,6 +26,7 @@ class Login extends Component {
     const {username, password} = this.state
     e.preventDefault();
     this.props.login(username, password)
+    
   }
 
   render() {
@@ -38,7 +39,7 @@ class Login extends Component {
             <Form.Label>Enter Username</Form.Label>
             <Form.Control type="username" placeholder="Enter username"
               name="username"
-              value={this.state.email} 
+              value={this.state.username} 
               onChange = {this.handleChange}/>
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.

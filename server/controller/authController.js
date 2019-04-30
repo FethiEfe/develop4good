@@ -56,8 +56,10 @@ const signupDev = async (req, res) => {
             if (isMatch) {
                 req.session.user = {
                     username: results[0].username,
+                    id: results[0].id
                 }
-                res.json({ username: results[0].username })
+                res.json({ username: results[0].username, 
+                           id: results[0].id })
             } else {
                 res.status(403).json("Wrong password")
             }
@@ -70,8 +72,9 @@ const signupDev = async (req, res) => {
                 if (isMatch) {
                     req.session.user = {
                         username: results[0].username,
+                        id: results[0].id 
                     }
-                    res.json({ username: results[0].username })
+                    res.json({ username: results[0].username, id: results[0].id  })
                 } else {
                     res.status(403).json("Wrong password")
                 }

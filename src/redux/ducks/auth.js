@@ -4,6 +4,7 @@ import axios from "axios"
 const initialState ={
     username: "",
     email: "",
+    id: "",
     isLogedIn: false
     
 }
@@ -67,9 +68,11 @@ export default function reducer (state = initialState, action){
         }
 
         case `${LOGIN}_FULFILLED`:
+        console.log(action.payload.data)
         return {
             ...state,
             username: action.payload.data.username,
+            id: action.payload.data.id,
             isLogedIn: true
         }
 
