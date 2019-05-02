@@ -1,0 +1,32 @@
+.ViewProfile {
+    position: absolute;
+    width: 60vw;
+    height: 55vh;
+    margin: 25vh 15vw 25vh 15vw;
+    border: 1px solid red;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+    
+    Form {
+        border: 1px solid green;
+        margin: 10vh 10vh  ; 
+        width: 40vw;
+        height: 45vh;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+
+    }
+
+    img {
+        border: 1px solid yellow;
+        width: 20vw;
+        height: 20vh;
+        
+    }
+}

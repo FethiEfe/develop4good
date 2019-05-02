@@ -7,7 +7,7 @@ import {Dropdown} from "react-bootstrap"
 import {logout} from "../../redux/ducks/auth"
 class Header extends Component {
     render() {
-        console.log(this.props.auth.isLogedIn)
+      
         return (
             <div className={style.header}>
             <Link to = "/">
@@ -32,7 +32,7 @@ class Header extends Component {
                     </div>
                     <div>
                         
-                        {this.props.auth.isLogedIn ? 
+                        {this.props.auth.isLogedIn && this.props.auth.id? 
                             <div>
                                
                                 <Link to = "/dev/myprofile" ><button>My Profile</button></Link>
@@ -45,7 +45,20 @@ class Header extends Component {
                         
                         
                             
-                        :  <Link to="/login"><button>Login</button></Link> }
+                        : this.props.auth.isLogedIn && this.props.auth.char_id ?
+                            <div>
+                               
+                                <Link to = "/char/viewprofile" ><button>My Profile</button></Link>
+                                <Link to = "/char/postproject" ><button>Post Project</button></Link>
+                                <Link to = "/">
+                                <button onClick = {() => this.props.logout()}>Logout</button>
+                                </Link>
+
+                            </div>
+                        
+                        
+                        : <Link to="/login"><button>Login</button></Link> 
+                    }
                 
                     </div>
                     

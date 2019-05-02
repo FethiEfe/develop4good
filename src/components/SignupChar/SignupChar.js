@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { Form, Button } from "react-bootstrap"
 import style from "./SignupChar.module.scss"
+import {connect} from "react-redux"
+import {signupChar} from "../../redux/ducks/auth"
 
 class SignupChar extends Component {
 
@@ -8,29 +10,46 @@ class SignupChar extends Component {
         super();
         this.state = {
             username: "",
+            email: "",
             password: "",
         }
     }
 
     handleChange = (e) => {
-        console.log(e.target.value)
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    handleSubmit = (e) => {
+        
+        e.preventDefault();
+        const { username, email, password } = this.state
+        this.props.signupChar(username, email, password)
     }
 
     render() {
         return (
             <div>
                 <div>Char Lorem Ipsum</div>
-                <Form className={style.Form}>
+                <Form className={style.Form} onSubmit = {this.handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="email"
+                        <Form.Control type="text"
                             placeholder="Enter username"
                             onChange={this.handleChange}
                             name="username"
                             value={this.state.username} />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email"
+                            placeholder="Enter email"
+                            onChange={this.handleChange}
+                            name="email"
+                            value={this.state.email}
+                            required />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
@@ -53,5 +72,5 @@ class SignupChar extends Component {
         )
     }
 }
-
-export default SignupChar
+const mapStateToPros = Reduxstate => Reduxstate
+export default connect(mapStateToPros, {signupChar})(SignupChar)

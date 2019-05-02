@@ -10,6 +10,8 @@ import SignupChar from "./SignupChar/SignupChar"
 import FindProject from "./Developer/FindProject/FindProject"
 import AppliedProject from "./Developer/AppliedProject/AppliedProject"
 import MyProfile from "./Developer/MyProfile/MyProfile"
+import ViewProfile from "./Charities/ViewProfile/ViewProfile"
+import PostProject from "./Charities/PostProject/PostProject"
 
 export default  (
     <Switch>
@@ -22,6 +24,9 @@ export default  (
         <Route path = "/dev/findproject" component = {FindProject} />
         <Route path = "/dev/appliedproject" component = {AppliedProject} />
         <Route path = "/dev/myprofile" component = {MyProfile} />
+        <Route path = "/char/viewprofile" component = {ViewProfile} />
+        <Route path = "/char/postproject" component = {PostProject} />
+
         <Route path = "/"  component = {ErrorPage}/>
     </Switch>
 
