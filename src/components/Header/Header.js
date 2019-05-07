@@ -31,6 +31,9 @@ class Header extends Component {
 
                     </div>
                     <div>
+                        <Link to = "/supportcommunity"><button>Support Community</button></Link>
+                    </div>
+                    <div>
                         
                         {this.props.auth.isLogedIn && this.props.auth.id? 
                             <div>
@@ -50,6 +53,7 @@ class Header extends Component {
                                
                                 <Link to = "/char/viewprofile" ><button>My Profile</button></Link>
                                 <Link to = "/char/postproject" ><button>Post Project</button></Link>
+                                <Link to = "/char/myprojects" ><button>My Projects</button></Link>
                                 <Link to = "/">
                                 <button onClick = {() => this.props.logout()}>Logout</button>
                                 </Link>

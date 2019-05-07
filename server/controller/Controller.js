@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs")
+const nodemailer = require("nodemailer")
 
 const getAllDevelopers = (req, res) => {
     const dbInstance = req.app.get("db");
@@ -9,7 +10,7 @@ const getAllDevelopers = (req, res) => {
         })
         .catch(err => console.log(err))
 
-    // console.log(`getall session ${req.session.user.username}`)
+
 }
 
 
@@ -67,7 +68,7 @@ signupChar = async (req, res) => {
             username: char.username,
             email: char.email,
         }
-        
+
 
         res.json(req.session.user)
 
@@ -94,10 +95,10 @@ login = async (req, res) => {
                 email: results[0].email,
                 linkedin: results[0].linkedin,
                 skills: results[0].skills,
-                img : results[0].img
+                img: results[0].img
             }
             res.json(req.session.user)
-            
+
         } else {
             res.status(403).json("Wrong password")
         }
@@ -119,7 +120,8 @@ login = async (req, res) => {
                     charimg: checkChar[0].charimg,
                 }
                 res.json(req.session.user)
-                
+
+
 
             } else {
                 res.status(403).json("Wrong password")
@@ -158,6 +160,16 @@ updateMyProfileInfo = async (req, res) => {
 
 }
 
+getDevProfilePic = async (req, res) => {
+    const { id } = req.params
+    const db = req.app.get("db")
+    const newProfilePic = await db.getDevProfilePic(id)
+    req.session.user = {
+        img: newProfilePic[0].img,
+    }
+    res.json(req.session.user)
+}
+
 updateCharProfileInfo = async (req, res) => {
     const { char_id, nameOfOrganization, website, email, charLinkedin, mission } = req.body;
     const db = req.app.get("db")
@@ -172,10 +184,104 @@ updateCharProfileInfo = async (req, res) => {
 
     }
     res.json(req.session.user)
-    
+
 }
 
+getCharProfilePic = async (req, res) => {
+    const { id } = req.params
 
+    const db = req.app.get("db")
+    const newProfilePic = await db.getCharProfilePic(id)
+    req.session.user = {
+        charimg: newProfilePic[0].charimg,
+    }
+
+    res.json(req.session.user)
+}
+
+postProject = async (req, res) => {
+    const { char_id } = req.params
+
+    const { title, numDev, skillsReq, text } = req.body
+
+    const db = req.app.get("db")
+    const result = await db.postProject([char_id, title, numDev, skillsReq, text])
+
+    res.status(200).json(result[0])
+}
+
+displayProjects = async (req, res) => {
+    const db = req.app.get("db");
+    const result = await db.displayProjects();
+    res.status(200).json(result)
+}
+
+displayProject = async (req, res) => {
+    const { project_id } = req.params
+    const db = req.app.get("db");
+    const result = await db.displayProject([project_id])
+    res.status(200).json(result[0])
+
+}
+
+applyProject = async (req, res) => {
+    const { dev_id, project_id, char_id } = req.params;
+    const db = req.app.get("db");
+    const result = await db.applyProject([dev_id, project_id, char_id]);
+    res.status(200).json(result[0])
+}
+
+appliedProject = async (req, res) => {
+    const { dev_id } = req.params
+    const db = req.app.get("db")
+    const result = await db.getAppliedProjects(dev_id)
+    res.status(200).json(result)
+}
+
+withdrawalProject = async (req, res) => {
+    const { project_id } = req.params
+    const db = req.app.get("db")
+    const result = await db.withdrawalProject(project_id)
+    console.log(result)
+}
+
+getCharProject = async (req, res) => {
+    const { char_id } = req.params
+    const db = req.app.get("db")
+    const result = await db.getCharProject(char_id)
+    res.status(200).json(result)
+}
+
+getInterestedDevNum = async (req, res) => {
+    const { project_id } = req.params
+    const db = req.app.get("db")
+    const result = await db.getInterestedDevNum(project_id)
+    res.status(200).json(result)
+    console.log(result)
+}
+
+main = async (req, res) => {
+    
+    let testAccount = await nodemailer.createTestAccount();
+    let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+            user: "caden.schmitt@ethereal.email", // generated ethereal user
+            pass: "MdayZt2JHbQM2MTRaU" // generated ethereal password
+        }
+    });
+    let info = await transporter.sendMail({
+        from: req.body.email, // sender address
+        to:  "f.akcay1@gmail.com", // list of receivers
+        subject: req.body.subject, // Subject line
+        text: req.body.message, // plain text body
+        html: req.body.message // html body
+      });
+      console.log("Message sent: %s", info.messageId);
+      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+}
 module.exports = {
     signupDev,
     signupChar,
@@ -183,7 +289,18 @@ module.exports = {
     login,
     logout,
     updateMyProfileInfo,
+    getDevProfilePic,
     updateCharProfileInfo,
-   
+    getCharProfilePic,
+    postProject,
+    displayProjects,
+    displayProject,
+    applyProject,
+    appliedProject,
+    withdrawalProject,
+    getCharProject,
+    getInterestedDevNum,
+    main
+
 
 }

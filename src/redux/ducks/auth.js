@@ -35,8 +35,9 @@ const SIGN_UP_CHAR = "SIGN_UP_DEV";
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
 const UPDATE_MY_PROFILE_INFO = "UPDATE_MY_PROFILE_INFO";
-const UPDATE_MY_PROFILE_PIC = "UPDATE_MY_PROFILE_PIC";
+const GET_DEV_PROFILE_PIC = "GET_DEV_PROFILE_PIC";
 const UPDATE_CHAR_PROFILE_INFO = "UPDATE_CHAR_PROFILE_INFO";
+const GET_CHAR_PROFILE_PIC = "GET_CHAR_PROFILE_PIC";
 
 
 // Action Cretor
@@ -72,19 +73,35 @@ export function logout() {
 export function updateMyProfileInfo(id, first_name, last_name, email, linkedin, skills) {
     return {
         type: UPDATE_MY_PROFILE_INFO,
-        payload: axios.post("/api/updateprofile", { id, first_name, last_name, email, linkedin, skills })
+        payload: axios.put("/api/updateprofile", { id, first_name, last_name, email, linkedin, skills })
     }
 }
 
-
-
+export function getDevProfilePic(id) {
+  
+    
+    return {
+        type: GET_DEV_PROFILE_PIC,
+        payload: axios.get(`/api/getprofile/${id}`)
+    }
+}
 
 export function updateCharProfileInfo(char_id, nameOfOrganization, website, email, charLinkedin, mission) {
     return {
         type: UPDATE_CHAR_PROFILE_INFO,
-        payload: axios.post("/api/updatecharprofile", { char_id, nameOfOrganization, website, email, charLinkedin, mission })
+        payload: axios.put("/api/updatecharprofile", { char_id, nameOfOrganization, website, email, charLinkedin, mission })
     }
 }
+
+export function getCharProfilePic(char_id) {
+  
+    
+    return {
+        type: GET_CHAR_PROFILE_PIC,
+        payload: axios.get(`/api/getcharprofile/${char_id}`)
+    }
+}
+
 
 export default function reducer(state = initialState, action) {
    
@@ -110,7 +127,7 @@ export default function reducer(state = initialState, action) {
             }
 
         case `${LOGIN}_FULFILLED`:
-       
+                
             return {
                 ...state,
                 username: action.payload.data.username,
@@ -133,7 +150,7 @@ export default function reducer(state = initialState, action) {
                 charimg:action.payload.data.charimg,
                 isLogedIn: true
             }
-
+        
         case `${LOGOUT}_FULFILLED`:
         
             return {
@@ -156,7 +173,14 @@ export default function reducer(state = initialState, action) {
                 skills: action.payload.data.skills,
                 
         }
-       
+
+        case `${GET_DEV_PROFILE_PIC}_FULFILLED`:
+        return {
+                ...state,
+                img: action.payload.data.img
+                
+        }
+        
 
         case `${UPDATE_CHAR_PROFILE_INFO}_FULFILLED`:
       
@@ -167,6 +191,14 @@ export default function reducer(state = initialState, action) {
                 charemail: action.payload.data.email,
                 charLinkedin: action.payload.data.charLinkedin,
                 mission: action.payload.data.mission
+                
+        }
+
+        case `${GET_CHAR_PROFILE_PIC}_FULFILLED`:
+        console.log(action.payload.data.charimg)
+        return {
+                ...state,
+                charimg: action.payload.data.charimg
                 
         }
         

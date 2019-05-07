@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Col, Container, Image, ButtonToolbar, Button } from "react-bootstrap"
 import style from "./MyProfile.module.scss"
 import { connect } from "react-redux"
-import { updateMyProfileInfo} from "../../../redux/ducks/auth"
+import { updateMyProfileInfo, getDevProfilePic} from "../../../redux/ducks/auth"
 import axios from "axios"
 
 
@@ -44,20 +44,22 @@ class MyProfile extends Component {
 
 
   uploadPic = (event) => {
+
     const { id } = this.props.auth;
     event.preventDefault();
     const formData = new FormData();
     formData.append('file', this.state.file[0]);
-    axios.post(`/api/updateprofilepic/${id}`, formData, { id,
+    axios.put(`/api/updateprofilepic/${id}`, formData, { id,
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     }).then(response => {
-      console.log(response)
       this.setState({img: response.data.Location})
+      this.props.getDevProfilePic(id)
     }).catch(error => {
       console.log(error)
     });
+    
    
   }
 
@@ -131,4 +133,4 @@ class MyProfile extends Component {
   }
 }
 const mapStateToProps = (Reduxstate) => Reduxstate
-export default connect(mapStateToProps, { updateMyProfileInfo })(MyProfile);
+export default connect(mapStateToProps, { updateMyProfileInfo, getDevProfilePic })(MyProfile);
