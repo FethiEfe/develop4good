@@ -76,7 +76,7 @@ class Contact extends Component {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Submit
+            Send
           </Button>
         </Form>
       </div>

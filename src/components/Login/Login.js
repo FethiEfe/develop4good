@@ -3,13 +3,16 @@ import style from "./Login.module.scss"
 import { Form, Button } from "react-bootstrap"
 import {connect} from "react-redux"
 import {login} from "../../redux/ducks/auth"
+import {Link, Redirect} from "react-router-dom"
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      getError: false,
+      redirect: false
     }
   }
 
@@ -26,11 +29,26 @@ class Login extends Component {
     const {username, password} = this.state
     e.preventDefault();
     this.props.login(username, password)
+    .then(result => {
+      this.setState({
+        getError: false,
+        redirect: true
+      })
+      
+    })
+    .catch(err => {
+      this.setState({
+        getError: true
+      })
+    })
+    
     
   }
 
   render() {
-    
+      if(this.state.redirect) {
+        return <Redirect to ="/dev/myprofile" />
+      }
     return (
       <div className={style.Login}>
 
@@ -41,9 +59,6 @@ class Login extends Component {
               name="username"
               value={this.state.username} 
               onChange = {this.handleChange}/>
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
@@ -53,18 +68,16 @@ class Login extends Component {
               value={this.state.password} 
               onChange = {this.handleChange}/>
           </Form.Group>
-
+          {this.state.getError ? <h3>Username or password is wrong</h3>: null}
           <div className={style.Buttons}>
+        
+              <Button variant="primary" type="submit" >Login</Button>
+         
 
-            <Button variant="primary" type="submit" >
-              Login
-            </Button>
-            <Button variant="primary" type="submit">
-              Signup
-            </Button>
 
           </div>
 
+            <Link to = "/" >You don't have an account yet. Click here to sign up</Link>
 
 
         </Form>

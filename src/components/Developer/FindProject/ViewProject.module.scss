@@ -1,0 +1,42 @@
+.Body{
+    position: absolute;
+    margin: 10vh 10vw 5vh 10vw;
+    width: 80vw;
+    height: 85vh;
+    
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+    align-items: center;
+   
+    
+    .Image{
+        
+        margin: 0vh 0vw 0vh 0vw;
+        width: 50vw;
+        height: 30vh;
+        border-radius: 10px;
+    }
+    .NameOfOrganization{
+        margin-top: 0px;
+        
+    }
+
+    .Mission{
+        text-align: center;
+    }
+
+    .Title {
+        text-align: center; 
+    }
+
+    .Skills {
+        text-align: center; 
+    }
+
+    .Text {
+        text-align: center; 
+    }
+
+}

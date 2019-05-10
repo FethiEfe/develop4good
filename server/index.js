@@ -8,6 +8,7 @@ const fileType = require('file-type');
 const bluebird = require('bluebird');
 const multiparty = require('multiparty');
 const cors = require('cors')
+const bodyParser = require("body-parser");
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY, AWS_BUCKET_NAME } = process.env
 const Controller = require("./controller/Controller")
 const bcrypt = require("bcryptjs")
@@ -15,8 +16,13 @@ const bcrypt = require("bcryptjs")
 
 
 const app = express()
-app.use(cors())
 app.use(express.json())
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors())
+const configureRoutes = require("./routes")
+configureRoutes(app);
 
 massive(CONNECTION_STRING)
   .then(db => {
@@ -79,6 +85,7 @@ app.delete(`/dev/deleteproject/:project_id`, Controller.withdrawalProject)
 app.get("/char/myprojects/:char_id", Controller.getCharProject)
 app.get(`/char/getdevnumint/:project_id`, Controller.getInterestedDevNum)
 app.post(`/api/contact`, Controller.main)
+app.get("/auth/cookie", Controller.getSession)
 
 
 
@@ -127,38 +134,6 @@ app.put('/api/updatecharprofilepic/:char_id', (request, response) => {
 })
 
 
-
-// (req, res) => {
-//   nodemailer.createTestAccount((err, account) => {
-//     const htmlEmail = `
-//     <h3>Contact Details<h3/>
-//     <ul>
-//       <li>Name: ${req.body.name} </li>
-//       <li>Email: ${req.body.email} </li>
-//     </ul>
-//     <h3>Message</h3>
-//     <p>${req.body.message}</p>
-//     `
-//     const transporter = nodemailer.createTransport({
-//       host: 'smtp.ethereal.email',
-//       port: 587,
-//       auth: {
-//         user: 'caden.schmitt@ethereal.email',
-//         pass: 'MdayZt2JHbQM2MTRaU'
-//       }
-//     });
-
-//     let info = await transporter.sendMail({
-//       from: '"Fred Foo 👻" <foo@example.com>', // sender address
-//       to: 'caden.schmitt@ethereal.email', // list of receivers
-//       subject: "New Message", // Subject line
-//       text: req.body.message, // plain text body
-//       html: htmlEmail // html body
-//     });
-  
-
-//   })
-// })
 
 app.listen(SERVER_PORT, () => {
   console.log(`I am listening on ${SERVER_PORT}`)

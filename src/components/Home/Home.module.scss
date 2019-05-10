@@ -1,5 +1,5 @@
 
-@media (min-width: 450px) {
+@media (max-width: 900px) {
     .Home{
        
         background-image: url("aboutS.jpg");
@@ -15,17 +15,20 @@
        
     }
 
-    h1 {
-        border-radius: 10%;
+    .Text {
+        border-radius: 10px;
         margin: 36vh 5vh 5vh 5vh;
-        background-color: rgba(255, 255, 255, 0.603);
-        color: black;
+        background-color: rgba(32, 31, 31, 0.685);
+        color: white;
         font-size: 40px;
-        font-weight: 500;
+        font-weight: 600;
         text-align: center;
         letter-spacing: 1px;
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
     }
     .Button1{
+        border: 2px solid white;
         border-radius: 20px;
         color: white;
         font-weight: 700;
@@ -35,18 +38,21 @@
     }
 
     .Button2{
+        border: 2px solid white;
         border-radius: 20px;
         color: white;
         font-weight: 700;
         font-size: 30px;
-        background-color: rgb(195, 236, 176)
+        background-color: rgb(195, 236, 176);
+        margin-bottom: 3vh;
     }
+    
 
 
 }
 
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
 
     .Home{
         background-image: url("aboutM.jpg");
@@ -62,15 +68,16 @@
         
         
         
-        h1 {
-            
-            margin: 30vh 15vh 20vh 15vh;
-            background-color: rgba(255, 255, 255, 0.397);
-            color: black;
+        .Text {
+            border-radius: 10px;
+            margin: 30vh 15vh 10vh 15vh;
+            background-color: rgba(32, 31, 31, 0.685);
+            color: white;
             font-size: 50px;
             font-weight: 700;
             text-align: center;
-            
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
             text-transform: uppercase;
             letter-spacing: 3px;
            
@@ -92,6 +99,8 @@
             font-size: 30px;
             background-color: rgb(195, 236, 176)
         }
-    
+        .StripeCheckout span{
+            color:red
+        }
     }
 }

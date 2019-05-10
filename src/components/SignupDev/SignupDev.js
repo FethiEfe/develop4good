@@ -2,8 +2,7 @@ import React, { Component } from "react"
 import { Form, Button } from "react-bootstrap"
 import style from "./SignupDev.module.scss"
 import axios from "axios"
-import { connect } from "react-redux"
-import { signupDev } from "../../redux/ducks/auth"
+import { Link } from 'react-router-dom'
 
 class SignupDev extends Component {
 
@@ -13,6 +12,8 @@ class SignupDev extends Component {
             username: "",
             email: "",
             password: "",
+            getError: undefined,
+            isSignedUp: false,
         }
     }
 
@@ -25,13 +26,23 @@ class SignupDev extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const { username, email, password } = this.state
-        this.props.signupDev(username, email, password)
+        axios.post("/auth/developers", { username, email, password })
+            .then(result => {
+                this.setState({
+                    isSignedUp: true,
+                    getError: undefined,
+                })
+            })
+            .catch(err => {
+                this.setState({
+                    getError: true
+                })
+            })
     }
 
     render() {
         return (
-            <div>
-                <div>Developer Lorem ipsum</div>
+            <div className={style.Body}>
                 <Form className={style.Form} onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Username</Form.Label>
@@ -49,6 +60,9 @@ class SignupDev extends Component {
                             name="email"
                             value={this.state.email}
                             required />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                        </Form.Text>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
@@ -63,15 +77,17 @@ class SignupDev extends Component {
                     <Button variant="primary" type="submit">
                         Signup
                     </Button>
+                    {this.state.getError ? <h5>Username is taken</h5> : null}
+                    <br />
+                    {this.state.isSignedUp ? <Link to="/login">You successfully signed up. Click to Login </Link> : null}
                 </Form>
-
             </div>
 
 
         )
     }
 }
-const mapStateToProps = Reduxstate => Reduxstate
 
 
-export default connect(mapStateToProps, { signupDev })(SignupDev)
+
+export default SignupDev

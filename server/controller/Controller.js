@@ -22,9 +22,8 @@ const signupDev = async (req, res) => {
     const existingChar = await db.verifychar([username])
 
     if (existingUser.length > 0 || existingChar.length > 0) {
-        res.status(403).json({
-            error: "Username is taken"
-        })
+        res.status(400).json("Username is taken")
+        // res.sendStatus(400);
     } else {
 
         const salt = bcrypt.genSaltSync(10);
@@ -261,7 +260,7 @@ getInterestedDevNum = async (req, res) => {
 }
 
 main = async (req, res) => {
-    
+
     let testAccount = await nodemailer.createTestAccount();
     let transporter = nodemailer.createTransport({
         host: "smtp.ethereal.email",
@@ -274,14 +273,34 @@ main = async (req, res) => {
     });
     let info = await transporter.sendMail({
         from: req.body.email, // sender address
-        to:  "f.akcay1@gmail.com", // list of receivers
+        to: "f.akcay1@gmail.com", // list of receivers
         subject: req.body.subject, // Subject line
         text: req.body.message, // plain text body
         html: req.body.message // html body
-      });
-      console.log("Message sent: %s", info.messageId);
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    });
+    console.log("Message sent: %s", info.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 }
+
+getSession = async (req, res) => {
+    const { session } = req;
+    if (!session.user) {
+        session.user = {
+            username: "" ,
+            email: "",
+            id: "",
+            first_name:"" ,
+            last_name:"" ,
+            email: "",
+            linkedin: "",
+            skills:"" ,
+            img: ""
+        };
+    }
+    res.json(session.user);
+    
+}
+
 module.exports = {
     signupDev,
     signupChar,
@@ -300,7 +319,8 @@ module.exports = {
     withdrawalProject,
     getCharProject,
     getInterestedDevNum,
-    main
+    main,
+    getSession,
 
 
 }

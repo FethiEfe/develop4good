@@ -2,70 +2,61 @@ import React, { Component } from "react";
 import style from "./Header.module.scss"
 import { Link } from "react-router-dom"
 import logo from "./icon.png"
-import {connect} from "react-redux"
-import {Dropdown} from "react-bootstrap"
-import {logout} from "../../redux/ducks/auth"
+import { connect } from "react-redux"
+import { Dropdown } from "react-bootstrap"
+import { logout, getSession } from "../../redux/ducks/auth"
 class Header extends Component {
+    componentDidMount() {
+        this.props.getSession();
+    }
     render() {
-      
+
         return (
             <div className={style.header}>
-            <Link to = "/">
-                <img src={logo} alt = "develop"/>
+                <Link to="/">
+                    <img src={logo} alt="develop" />
 
-            </Link>
+                </Link>
 
-                <label for= {style.toggle} >Menu &#9776;</label>
-                <input type="checkbox" id= {style.toggle} />
+                <label for={style.toggle} >Menu &#9776;</label>
+                <input type="checkbox" id={style.toggle} />
 
-                <div className= {style.headerRigth}>
-                    <div>
+                <div className={style.headerRigth}>
+                    <div className={style.About}>
 
-                        <Link to="/about"><button>About us</button></Link>
+                        <Link to="/about">About</Link>
+
+                    </div>
+
+                    <div className={style.Contact}>
+
+                        <Link to="/contact">Contact</Link>
 
                     </div>
 
-                    <div>
-
-                        <Link to="/contact"><button>Contact</button></Link>
-
-                    </div>
-                    <div>
-                        <Link to = "/supportcommunity"><button>Support Community</button></Link>
-                    </div>
-                    <div>
-                        
-                        {this.props.auth.isLogedIn && this.props.auth.id? 
-                            <div>
-                               
-                                <Link to = "/dev/myprofile" ><button>My Profile</button></Link>
-                                <Link to = "/dev/findproject" ><button>Find Project</button></Link>
-                                <Link to = "/dev/appliedproject" ><button>Applied Project</button></Link>
-                                <button onClick = {() => this.props.logout()}>Logout</button>
-
-                            </div>
-            
-                        
-                        
-                            
-                        : this.props.auth.isLogedIn && this.props.auth.char_id ?
-                            <div>
-                               
-                                <Link to = "/char/viewprofile" ><button>My Profile</button></Link>
-                                <Link to = "/char/postproject" ><button>Post Project</button></Link>
-                                <Link to = "/char/myprojects" ><button>My Projects</button></Link>
-                                <Link to = "/">
-                                <button onClick = {() => this.props.logout()}>Logout</button>
-                                </Link>
-
-                            </div>
-                        
-                        
-                        : <Link to="/login"><button>Login</button></Link> 
-                    }
-                
-                    </div>
                     
+
+                        {this.props.auth.isLogedIn && this.props.auth.id ?
+                            <div className = {style.conditionalButton} >
+                                <Link to="/dev/myprofile" >My Profile</Link>
+                                <Link to="/dev/findproject" >Find Project</Link>
+                                <Link to="/dev/appliedproject" >My Project</Link>
+                                <Link to="/"><a onClick={() => this.props.logout()}>Logout</a></Link>
+                            </div>
+                            : this.props.auth.isLogedIn && this.props.auth.char_id ?
+                                <div >
+                                    <Link to="/char/viewprofile" >My Profile</Link>
+                                    <Link to="/char/postproject" >Post Project</Link>
+                                    <Link to="/char/myprojects" >My Projects</Link>
+                                    <Link to="/"><button onClick={() => this.props.logout()}>Logout</button></Link>
+                                </div>
+
+
+                            : <div className={style.Login}  ><Link to="/login">Login</Link></div>
+                        }
+               
+                    
+
 
                 </div>
             </div>
@@ -76,4 +67,4 @@ class Header extends Component {
 const mapStateToProps = reduxState => reduxState;
 
 
-export default connect (mapStateToProps, {logout})(Header);
+export default connect(mapStateToProps, { logout, getSession })(Header);

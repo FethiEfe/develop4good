@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Form, Col, Container, Image, ButtonToolbar, Button } from "react-bootstrap"
+import { Form, Col,  Button } from "react-bootstrap"
 import style from "./MyProfile.module.scss"
 import { connect } from "react-redux"
-import { updateMyProfileInfo, getDevProfilePic} from "../../../redux/ducks/auth"
+import { updateMyProfileInfo, getDevProfilePic,getSession} from "../../../redux/ducks/auth"
 import axios from "axios"
+import {Redirect} from "react-router-dom"
 
 
 
@@ -19,8 +20,30 @@ class MyProfile extends Component {
       linkedin: props.auth.linkedin,
       skills: props.auth.skills,
       img: props.auth.img,
-      file: null
+      file: null,
+      redirect: false
     }
+  }
+
+  componentDidMount(){
+    
+    this.props.getSession().then(() => {
+
+      this.setState({
+        first_name: this.props.auth.first_name,
+        last_name: this.props.auth.last_name,
+        email: this.props.auth.email,
+        linkedin: this.props.auth.linkedin,
+        skills: this.props.auth.skills,
+        img: this.props.auth.img
+      })
+      
+      if(!this.props.auth.id){
+        this.setState({
+          redirect: true
+        })
+      }
+    });
   }
 
   handleChange = (e) => {
@@ -44,21 +67,24 @@ class MyProfile extends Component {
 
 
   uploadPic = (event) => {
+    if(!this.state.file){alert("You didn't choose a file. Please click on picture to upload one and hit Upload button")}
+    else {
+      const { id } = this.props.auth;
+      event.preventDefault();
+      const formData = new FormData();
+      formData.append('file', this.state.file[0]);
+      axios.put(`/api/updateprofilepic/${id}`, formData, { id,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(response => {
+        this.setState({img: response.data.Location})
+        this.props.getDevProfilePic(id)
+      }).catch(error => {
+        console.log(error)
+      });
 
-    const { id } = this.props.auth;
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('file', this.state.file[0]);
-    axios.put(`/api/updateprofilepic/${id}`, formData, { id,
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      this.setState({img: response.data.Location})
-      this.props.getDevProfilePic(id)
-    }).catch(error => {
-      console.log(error)
-    });
+    }
     
    
   }
@@ -66,14 +92,28 @@ class MyProfile extends Component {
 
 
   render() {
-
+    
+    if(this.state.redirect) {
+      return <Redirect to='/login' />
+    }
     return (
       <div className={style.MyProfile}>
-          <div>
+          <div className={style.Image}>
 
-            <img src={this.state.img} />
-            <input type="file" onChange={this.handleFileUpload} />
-            <button onClick={this.uploadPic} >Upload</button>
+            <img src={this.state.img}
+                 onClick = {() => this.fileInput.click()} />
+            <input type="file" 
+                   onChange={this.handleFileUpload} 
+                   style = {{display : "none"}}
+                   ref ={fileInput => this.fileInput = fileInput}/>
+            <div className ={style.Text}>Click on picture to edit and hit upload button</div>
+            
+              <Button variant="primary" type="submit" onClick={this.uploadPic} className = {style.UploadButton} >
+                  Upload
+              </Button>
+             
+            
+            
 
           </div>
         <Form onSubmit={this.handleSubmit}>
@@ -103,7 +143,9 @@ class MyProfile extends Component {
                 required />
             </Col>
             <Col>
-              <Form.Control placeholder="Linkedin"
+              <Form.Control 
+                
+                placeholder="Linkedin"
                 name="linkedin"
                 value={this.state.linkedin}
                 onChange={this.handleChange}
@@ -116,6 +158,7 @@ class MyProfile extends Component {
             name="skills"
             value={this.state.skills}
             onChange={this.handleChange}
+            className = {style.Skills}
             required
           />
 
@@ -132,5 +175,8 @@ class MyProfile extends Component {
 
   }
 }
-const mapStateToProps = (Reduxstate) => Reduxstate
-export default connect(mapStateToProps, { updateMyProfileInfo, getDevProfilePic })(MyProfile);
+const mapStateToProps = (reduxstate) => {
+
+ return reduxstate
+}
+export default connect(mapStateToProps, { updateMyProfileInfo, getDevProfilePic,getSession })(MyProfile);

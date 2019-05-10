@@ -29,32 +29,17 @@ const initialState = {
 
 // Action Types
 
-
-const SIGN_UP_DEV = "SIGN_UP_DEV";
-const SIGN_UP_CHAR = "SIGN_UP_DEV";
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
 const UPDATE_MY_PROFILE_INFO = "UPDATE_MY_PROFILE_INFO";
 const GET_DEV_PROFILE_PIC = "GET_DEV_PROFILE_PIC";
 const UPDATE_CHAR_PROFILE_INFO = "UPDATE_CHAR_PROFILE_INFO";
 const GET_CHAR_PROFILE_PIC = "GET_CHAR_PROFILE_PIC";
+const GET_SESSION = "GET_SESSION"
 
 
 // Action Cretor
 
-export function signupDev(username, email, password) {
-    return {
-        type: SIGN_UP_DEV,
-        payload: axios.post("/auth/developers", { username, email, password })
-    }
-}
-
-export function signupChar(username, email, password) {
-    return {
-        type: SIGN_UP_CHAR,
-        payload: axios.post("/auth/signupchar", { username, email, password })
-    }
-}
 
 export function login(username, password) {
     return {
@@ -102,30 +87,19 @@ export function getCharProfilePic(char_id) {
     }
 }
 
+export function getSession() {
+  
+    
+    return {
+        type: GET_SESSION,
+        payload: axios.get("/auth/cookie")
+    }
+}
 
 export default function reducer(state = initialState, action) {
    
     switch (action.type) {
-        case `${SIGN_UP_DEV}_FULFILLED`:
         
-            return {
-                ...state,
-                id: action.payload.data.id,
-                username: action.payload.data.username,
-                email: action.payload.data.email,
-                isLogedIn: true
-            }
-
-        case `${SIGN_UP_CHAR}_FULFILLED`:
-            return {
-                ...state,
-                char_id: action.payload.data.char_id,
-                username: action.payload.data.username,
-                charemail: action.payload.data.email,
-                isLogedIn: true
-
-            }
-
         case `${LOGIN}_FULFILLED`:
                 
             return {
@@ -195,11 +169,34 @@ export default function reducer(state = initialState, action) {
         }
 
         case `${GET_CHAR_PROFILE_PIC}_FULFILLED`:
-        console.log(action.payload.data.charimg)
         return {
                 ...state,
                 charimg: action.payload.data.charimg
                 
+        }
+
+        case `${GET_SESSION}_FULFILLED` :
+        return {
+            ...state,
+            username: action.payload.data.username,
+            email: action.payload.data.email,
+            id: action.payload.data.id,
+            first_name: action.payload.data.first_name,
+            last_name: action.payload.data.last_name,
+            email: action.payload.data.email,
+            linkedin: action.payload.data.linkedin,
+            skills: action.payload.data.skills,
+            img:action.payload.data.img,
+            
+            charUsername:action.payload.data.username,
+            char_id: action.payload.data.char_id,
+            charemail: action.payload.data.charemail,
+            nameOfOrganization: action.payload.data.nameOfOrganization,
+            website: action.payload.data.website,
+            charLinkedin: action.payload.data.charLinkedin,
+            mission: action.payload.data.mission,
+            charimg:action.payload.data.charimg,
+            isLogedIn: true
         }
         
         default:

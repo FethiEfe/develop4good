@@ -1,5 +1,17 @@
+.Body{
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around; 
+}
 .Form {
-    border: 1px solid red;
-    position: absolute;
-    margin: 30vh;
+    
+    height: 50vh;
+    width: 50vw;
+    margin: 25vh 25vw 25vh 25vw;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around; 
+
 }

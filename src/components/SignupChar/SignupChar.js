@@ -2,7 +2,9 @@ import React, { Component } from "react"
 import { Form, Button } from "react-bootstrap"
 import style from "./SignupChar.module.scss"
 import {connect} from "react-redux"
-import {signupChar} from "../../redux/ducks/auth"
+import {Link} from "react-router-dom"
+import axios from "axios"
+
 
 class SignupChar extends Component {
 
@@ -12,6 +14,8 @@ class SignupChar extends Component {
             username: "",
             email: "",
             password: "",
+            getError: undefined,
+            isSignedUp: false,
         }
     }
 
@@ -25,15 +29,27 @@ class SignupChar extends Component {
         
         e.preventDefault();
         const { username, email, password } = this.state
-        this.props.signupChar(username, email, password)
+        axios
+        .post("/auth/signupchar", { username, email, password })
+        .then(result => {
+            this.setState({
+                isSignedUp: true,
+                getError: undefined,
+            })
+        })
+        .catch(err => {
+            this.setState({
+                getError: true
+            })
+        })
     }
 
     render() {
         return (
-            <div>
-                <div>Char Lorem Ipsum</div>
+            <div className = {style.Body}>
+                
                 <Form className={style.Form} onSubmit = {this.handleSubmit}>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="formBasicEmail" id = "label-username">
                         <Form.Label>Username</Form.Label>
                         <Form.Control type="text"
                             placeholder="Enter username"
@@ -64,6 +80,9 @@ class SignupChar extends Component {
                     <Button variant="primary" type="submit">
                         Signup
                     </Button>
+                    {this.state.getError ? <h5>Username is taken</h5> : null}
+                    <br />
+                    {this.state.isSignedUp ? <Link to="/login">You successfully signed up. Click to Login </Link> : null}
                 </Form>
             </div>
 
@@ -72,5 +91,5 @@ class SignupChar extends Component {
         )
     }
 }
-const mapStateToPros = Reduxstate => Reduxstate
-export default connect(mapStateToPros, {signupChar})(SignupChar)
+
+export default SignupChar

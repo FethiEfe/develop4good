@@ -16,7 +16,6 @@ class PostProject extends Component {
         }
     }
     handleChange =  (e) => {
-        console.log(e.target.value)
         this.setState({
             [e.target.name]: e.target.value
             
@@ -31,7 +30,7 @@ class PostProject extends Component {
         axios
         .post(`/api/postproject/${char_id}`, {title, numDev, skillsReq, text})
         .then(res => {
-            console.log(res.data)
+            
             this.setState({
                 title:res.data.title,
                 numDev: res.data.numDev,
@@ -65,6 +64,7 @@ class PostProject extends Component {
                                       name = "numDev"
                                       value = {this.state.numDev}
                                       onChange = {this.handleChange}>
+                            <option>0</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>

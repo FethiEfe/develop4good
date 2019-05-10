@@ -2,20 +2,34 @@ import React, { Component } from 'react';
 import { connect } from "react-redux"
 import axios from "axios"
 import style from "./AppliedProject.module.scss"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
+import {getSession} from "../../../redux/ducks/auth"
+import {Button} from "react-bootstrap"
 
 
 class AppliedProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dev_id: this.props.auth.id,
-      applied_projects: []
+      dev_id: props.auth.id,
+      applied_projects: [],
+      redirect: false
     }
   }
 
   componentDidMount(){
-    this.appliedProject();
+    this.props.getSession().then(() => {
+      this.setState({
+        dev_id: this.props.auth.id
+      }, () => {
+        this.appliedProject();
+      })
+      if(!this.props.auth.id){
+        this.setState({
+          redirect: true
+        })
+      }
+    });
   }
 
 
@@ -24,7 +38,7 @@ class AppliedProject extends Component {
     axios
       .get(`/dev/appliedprojects/${dev_id}`)
       .then(result => {
-        console.log(result.data)
+        
         this.setState({
           applied_projects: result.data
         })
@@ -48,20 +62,27 @@ class AppliedProject extends Component {
   }
 
   render() {
+  
+    if(this.state.redirect) {
+      return <Redirect to='/login' />
+    }
     const list = this.state.applied_projects.map((project, index) => {
       return (
         <div key={index} className={style.Card}>
 
           <img src={project.charimg} />
-          <h1>{project.nameoforganization}</h1>
-          <h3>{project.title}</h3>
-          <h3>Skills: {project.skills_req}</h3>
-          <div>
+          <h3 className = {style.Title}>{project.title.length < 40 ? `${project.title}` : `${project.title.substring(0,40)}...`}</h3>
+          <h5 className = {style.Skills}><span>Skills Required: </span>{project.skills_req.length <35 ? `${project.skills_req}` : `${project.skills_req.substring(0,45)}...`}</h5>
+          {project.num_dev == 1 ? <h5>{project.num_dev} developer needed for this project</h5>
+          :<h5 className = {style.NumDev}>{project.num_dev} developers needed for this project</h5>}
+          <div className = {style.Buttons}>
             <Link to={`/dev/appliedproject/${project.project_id}`}>
-              <button>View</button>
+              <Button variant="primary" type="submit" className = {style.Button1}>
+                View
+              </Button>
             </Link>
 
-            <button onClick={() => this.withdrawalProject(project.project_id)}>Withdrawal</button>
+            <Button onClick={() => this.withdrawalProject(project.project_id)} className = {style.Button1}>Withdrawal</Button>
 
           </div>
 
@@ -79,4 +100,4 @@ class AppliedProject extends Component {
   }
 }
 const mapStateToProps = Reduxstate => Reduxstate
-export default connect(mapStateToProps)(AppliedProject);
+export default connect(mapStateToProps, {getSession})(AppliedProject);

@@ -24,7 +24,6 @@ class MyProject extends Component {
         axios
             .get(`/char/myprojects/${char_id}`)
             .then(result => {
-                console.log(result.data)
                 this.setState({
                 myProjects : result.data
                 })

@@ -4,6 +4,7 @@ import style from "./ViewProfile.module.scss"
 import { connect } from "react-redux";
 import { updateCharProfileInfo, getCharProfilePic } from "../../../redux/ducks/auth"
 import axios from "axios"
+import {Redirect} from "react-router-dom"
 
 class ViewProfile extends Component {
     constructor(props) {
@@ -15,12 +16,19 @@ class ViewProfile extends Component {
             charLinkedin: props.auth.charLinkedin,
             mission: props.auth.mission,
             charimg: props.auth.charimg,
-            file: null
+            file: null,
+            redirect: false,
 
 
         }
     }
-
+    componentDidMount(){
+        if(!this.props.auth.username){
+            this.setState({
+              redirect: true
+            })
+          }
+    }
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -62,6 +70,9 @@ class ViewProfile extends Component {
 
     }
     render() {
+        if(this.state.redirect) {
+            return <Redirect to='/login' />
+        }
         return (
             <div className={style.ViewProfile}>
                 <div>
