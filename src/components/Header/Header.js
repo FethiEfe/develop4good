@@ -44,11 +44,11 @@ class Header extends Component {
                                 <Link to="/"><a onClick={() => this.props.logout()}>Logout</a></Link>
                             </div>
                             : this.props.auth.isLogedIn && this.props.auth.char_id ?
-                                <div >
+                                <div className = {style.conditionalButton}>
                                     <Link to="/char/viewprofile" >My Profile</Link>
                                     <Link to="/char/postproject" >Post Project</Link>
                                     <Link to="/char/myprojects" >My Projects</Link>
-                                    <Link to="/"><button onClick={() => this.props.logout()}>Logout</button></Link>
+                                    <Link to="/"><a onClick={() => this.props.logout()}>Logout</a></Link>
                                 </div>
 
 

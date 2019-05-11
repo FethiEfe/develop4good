@@ -36,7 +36,8 @@ class Contact extends Component {
 
             <Row>
               <Col>
-                <Form.Control placeholder="Name" 
+                <label className = {style.MailLables}>Full Name:</label>
+                <Form.Control placeholder="Albus Percival Wulfric Brian Dumbledore" 
                               name = "name"
                               value = {this.state.name}
                               onChange = {this.handleChange}/>
@@ -46,7 +47,8 @@ class Contact extends Component {
 
             <Row>
               <Col>
-                <Form.Control placeholder="Subject" 
+                <label  className = {style.MailLables}>Subject:</label>
+                <Form.Control placeholder="About WizardApp" 
                               name = "subject"
                               value = {this.state.subject}
                               onChange = {this.handleChange}/>
@@ -55,9 +57,9 @@ class Contact extends Component {
 
 
           <Form.Group controlId="exampleForm.ControlInput1">
-            <Form.Label>Email address</Form.Label>
+            <label  className = {style.MailLables}>Email address:</label>
             <Form.Control type="email" 
-                          placeholder="name@example.com"
+                          placeholder="dumbledore@hogwarts.edu"
                           name = "email"
                           value = {this.state.email}
                           onChange = {this.handleChange} />
@@ -66,9 +68,9 @@ class Contact extends Component {
 
 
           <Form.Group controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Example textarea</Form.Label>
+            <label  className = {style.MailLables}>Your Message:</label>
             <Form.Control as="textarea" 
-                          placeholder="Tell us what do you think" 
+                          placeholder="Dear Muggle Developers I really appreciate your efforts in creating our WizardApp. It's really making a difference. Albus " 
                           rows="3" 
                           name ="message"
                           value = {this.state.message}

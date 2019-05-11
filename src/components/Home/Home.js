@@ -17,13 +17,11 @@ class Home extends Component {
           <Link to = "/signupchar">
              <button className = {style.Button2}>Charities Sign Up Here</button>
            </Link>
-         
            <SupportCommunity />
+         
 
           
-           {/* <Link to = "/supportcommunity">
-             <button className = {style.Button3}>Support Community</button>
-           </Link> */}
+    
 
         
         

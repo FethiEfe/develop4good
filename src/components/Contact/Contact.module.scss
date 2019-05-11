@@ -1,5 +1,8 @@
-
-
+@media (min-width:901px){
+    .MailLables{
+        display: block
+    }
+}
 .Contact{
     width: 70vw;
     height: 70vh;
@@ -23,6 +26,10 @@
         flex-wrap: nowrap;
         justify-content: space-around;
         align-items: stretch;
+
+        label{
+            color:black
+        }
     }
 }
 

@@ -2,9 +2,9 @@ import React, { Component } from "react"
 import { Form, Col, Button } from "react-bootstrap"
 import style from "./ViewProfile.module.scss"
 import { connect } from "react-redux";
-import { updateCharProfileInfo, getCharProfilePic } from "../../../redux/ducks/auth"
+import { updateCharProfileInfo, getCharProfilePic, getSession } from "../../../redux/ducks/auth"
 import axios from "axios"
-import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom"
 
 class ViewProfile extends Component {
     constructor(props) {
@@ -22,12 +22,25 @@ class ViewProfile extends Component {
 
         }
     }
-    componentDidMount(){
-        if(!this.props.auth.username){
+    componentDidMount() {
+
+        this.props.getSession().then(() => {
+
             this.setState({
-              redirect: true
+                nameOfOrganization: this.props.auth.nameOfOrganization,
+                website: this.props.auth.website,
+                email: this.props.auth.charemail,
+                charLinkedin: this.props.auth.charLinkedin,
+                mission: this.props.auth.mission,
+                charimg: this.props.auth.charimg,
             })
-          }
+
+            if (!this.props.auth.char_id) {
+                this.setState({
+                    redirect: true
+                })
+            }
+        });
     }
     handleChange = (e) => {
         this.setState({
@@ -48,38 +61,47 @@ class ViewProfile extends Component {
     }
 
     uploadPic = (event) => {
-
-        const { char_id } = this.props.auth;
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append('file', this.state.file[0]);
-        axios.put(`/api/updatecharprofilepic/${char_id}`, formData, {
-            char_id,
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(response => {
-            this.setState({ 
-                charimg: response.data
+        if (!this.state.file) { alert("You didn't choose a file. Please click on picture to upload one and hit Upload button") }
+        else {
+            const { char_id } = this.props.auth;
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('file', this.state.file[0]);
+            axios.put(`/api/updatecharprofilepic/${char_id}`, formData, {
+                char_id,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                this.setState({
+                    charimg: response.data
                 })
-            this.props.getCharProfilePic(char_id)
-        }).catch(error => {
-            console.log(error)
-        });
+                this.props.getCharProfilePic(char_id)
+            }).catch(error => {
+                console.log(error)
+            });
 
-
+        }
     }
     render() {
-        if(this.state.redirect) {
+        if (this.state.redirect) {
             return <Redirect to='/login' />
         }
         return (
             <div className={style.ViewProfile}>
-                <div>
+                <div className={style.Image}>
 
-                    <img src={this.state.charimg} />
-                    <input type="file" onChange={this.handleFileUpload} />
-                    <button onClick={this.uploadPic} >Upload</button>
+                    <img src={this.state.charimg} 
+                         onClick = {() => this.fileInput.click()}/>
+                    <input type="file" 
+                           onChange={this.handleFileUpload} 
+                           style = {{display : "none"}}
+                           ref ={fileInput => this.fileInput = fileInput}/>
+                    <div className ={style.Text}>Click on picture to edit and hit upload button</div>
+                    <Button variant="primary" type="submit" onClick={this.uploadPic} className = {style.UploadButton} >
+                        Upload
+                    </Button>
+                    
 
                 </div>
                 <Form onSubmit={this.handleSubmit}>
@@ -135,4 +157,4 @@ class ViewProfile extends Component {
     }
 }
 const mapStateToProps = (Reduxstate) => Reduxstate
-export default connect(mapStateToProps, { updateCharProfileInfo,getCharProfilePic })(ViewProfile)
+export default connect(mapStateToProps, { updateCharProfileInfo, getCharProfilePic,getSession })(ViewProfile)

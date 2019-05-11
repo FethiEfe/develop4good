@@ -144,19 +144,16 @@ updateMyProfileInfo = async (req, res) => {
 
     const db = req.app.get("db")
     const newProfileInfo = await db.edit_profile_info([id, first_name, last_name, email, linkedin, skills])
-
     req.session.user = {
-
-        first_name: newProfileInfo[0].first_name,
-        last_name: newProfileInfo[0].last_name,
-        email: newProfileInfo[0].email,
-        linkedin: newProfileInfo[0].linkedin,
+        first_name: newProfileInfo[0].first_name, 
+        last_name: newProfileInfo[0]. last_name, 
+        email: newProfileInfo[0].email, 
+        linkedin: newProfileInfo[0].linkedin , 
         skills: newProfileInfo[0].skills
-
     }
-
-    res.json(req.session.user)
-
+    console.log(newProfileInfo[0])
+    console.log(`req.session.user${req.session.user.last_name}`)
+    res.status(200).json(newProfileInfo[0])
 }
 
 getDevProfilePic = async (req, res) => {
@@ -226,8 +223,15 @@ displayProject = async (req, res) => {
 applyProject = async (req, res) => {
     const { dev_id, project_id, char_id } = req.params;
     const db = req.app.get("db");
-    const result = await db.applyProject([dev_id, project_id, char_id]);
-    res.status(200).json(result[0])
+    const existingProject = await db.existingProject([dev_id, project_id])
+    if(existingProject[0]){
+        res.status(403).json("You already applied this project") 
+    }else {
+        const result = await db.applyProject([dev_id, project_id, char_id]);
+        res.status(200).json(result[0])
+        
+    }
+  
 }
 
 appliedProject = async (req, res) => {
@@ -241,7 +245,7 @@ withdrawalProject = async (req, res) => {
     const { project_id } = req.params
     const db = req.app.get("db")
     const result = await db.withdrawalProject(project_id)
-    console.log(result)
+   
 }
 
 getCharProject = async (req, res) => {
@@ -256,7 +260,7 @@ getInterestedDevNum = async (req, res) => {
     const db = req.app.get("db")
     const result = await db.getInterestedDevNum(project_id)
     res.status(200).json(result)
-    console.log(result)
+    
 }
 
 main = async (req, res) => {

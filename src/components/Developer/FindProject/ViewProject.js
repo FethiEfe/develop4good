@@ -61,6 +61,7 @@ import {Button} from "react-bootstrap"
         })
         .catch(err => {
             console.log(`Something went wrong at apply Project ${err}`)
+            alert("You have already applied to this project ")
         })
     }
     render(){

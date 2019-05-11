@@ -1,32 +1,174 @@
-.ViewProfile {
-    position: absolute;
-    width: 60vw;
-    height: 55vh;
-    margin: 25vh 15vw 25vh 15vw;
-    border: 1px solid red;
-    display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: flex-start;
+// .ViewProfile {
+//     position: absolute;
+//     width: 60vw;
+//     height: 55vh;
+//     margin: 25vh 15vw 25vh 15vw;
+//     border: 1px solid red;
+//     display: flex;
+// 	flex-direction: row;
+// 	flex-wrap: nowrap;
+// 	justify-content: flex-start;
+// 	align-items: flex-start;
     
-    Form {
-        border: 1px solid green;
-        margin: 10vh 10vh  ; 
-        width: 40vw;
-        height: 45vh;
+//     Form {
+//         border: 1px solid green;
+//         margin: 10vh 10vh  ; 
+//         width: 40vw;
+//         height: 45vh;
+//         display: flex;
+//         flex-direction: column;
+//         flex-wrap: nowrap;
+//         justify-content: space-around;
+//         align-items: center;
+
+//     }
+
+//     img {
+//         border: 1px solid yellow;
+//         width: 20vw;
+//         height: 20vh;
+        
+//     }
+// }
+
+@media (max-width: 900px) {
+    .ViewProfile {
+        
+        position: absolute;
+        width: 70vw;
+        height: 70vh;
+        margin: 20vh 15vw 25vh 15vw;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: space-around;
         align-items: center;
+        
+        
+        Form {
+            border: 3px solid grey;
+            border-radius: 10px;
+            width: 70vw;
+            height: 55vh;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
+            margin-top: 5vh;
+            
+
+
+            .Skills{
+                width: 55vw;
+                
+            }
+    
+        }
+    
+        .Image {
+            
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                border: 10px solid #e0d8d896;
+                border-bottom: 30px solid #e0d8d896;
+                padding: 0px 0px 0px 0px;
+                width: 20vw;
+                height: 15vh;
+                // transform:rotate(4deg);
+                box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
+                // box-shadow: 10px 10px 2px rgba(0,0,0,0.15);
+                margin-bottom: 20px;
+               
+
+            }
+            
+            .Text {
+                font-family: cursive; 
+                
+            }
+
+           
+              
+            
+        }
 
     }
+}
 
-    img {
-        border: 1px solid yellow;
-        width: 20vw;
-        height: 20vh;
+
+
+@media (min-width: 901px) {
+
+    .ViewProfile {
+       
+        position: absolute;
+        width: 70vw;
+        height: 55vh;
+        margin: 25vh 15vw 25vh 15vw;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: flex-start;
         
+        Form {
+            border: 3px solid grey;
+            border-radius: 10px;
+            width: 45vw;
+            height: 55vh;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
+            
+
+
+            .Skills{
+                width: 35vw;
+                
+            }
+        
+        }
+    
+        .Image {
+            
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                border: 10px solid #e0d8d896;
+                border-bottom: 60px solid #e0d8d896;
+                padding: 0px 0px 0px 0px;
+                width: 20vw;
+                height: 30vh;
+                // transform:rotate(4deg);
+                box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
+                // box-shadow: 10px 10px 2px rgba(0,0,0,0.15);
+                margin-bottom: 20px;
+               
+
+            }
+            
+            .Text {
+                font-family: cursive; 
+                
+            }
+
+           
+              
+            
+        }
     }
 }

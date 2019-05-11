@@ -39,14 +39,15 @@ class MyProject extends Component {
         const { char_id } = this.state
         const project = this.state.myProjects.map((project, index) => {
             return (
-                <div key={index} className= {style.Card}>
+                <div key={index} className = {style.Card}>
 
                     <img src={project.charimg} />
-                    <h1>{project.nameoforganization}</h1>
-                    <h3>{project.title}</h3>
-                    <h3>Skills: {project.skills_req}</h3>
+                    <h3 className = {style.Title}>{project.title.length < 40 ? `${project.title}` : `${project.title.substring(0,40)}...`}</h3>
+                    <h5 className = {style.Skills}><span>Skills Required: </span>{project.skills_req.length <35 ? `${project.skills_req}` : `${project.skills_req.substring(0,45)}...`}</h5>
+                    {project.num_dev == 1 ? <h5 className = {style.NumDev}>{project.num_dev} developer needed for this project</h5>
+                    :<h5 className = {style.NumDev}>{project.num_dev} developers needed for this project</h5>}
                     <Link to={`/char/myprojects/${project.project_id}/${char_id}`}>
-                        <a>Click to see developers that applied to your project</a>
+                        <a className = {style.Button}>Click to see who is interested in your project</a>
                     </Link>
 
 

@@ -1,10 +1,39 @@
 .PostProject{
-    border:1px solid red;
+    border: 3px solid grey;
     position: absolute;
     width: 50vw;
-    height: 50vh;
-    margin: 25vh 25vw 25vh 25vw;
+    height: 55vh;
+    margin: 25vh 25vw 20vh 25vw;
+    box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
+    padding: 1vh 1vw 1vh 1vw;
     Form {
         display: block;
     }
+
+    .LabelPostProject{
+        display: block;
+        color:black
+    }
+    #Option {
+        width: 40vw;
+    }
+}
+
+@media (max-width: 900px){
+    .PostProject{
+        padding: 1vh 1vw 1vh 1vw;
+        width: 60vw;
+        margin: 25vh 20vw 20vh 20vw;
+        
+    }
+    .LabelPostProject{
+        display: block;
+        color:black
+    }
+
+    #Option {
+        width: 20vw;
+    }
+  
+
 }

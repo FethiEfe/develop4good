@@ -47,14 +47,14 @@ class Login extends Component {
 
   render() {
       if(this.state.redirect) {
-        return <Redirect to ="/dev/myprofile" />
+        return <Redirect to ="/" />
       }
     return (
       <div className={style.Login}>
 
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Enter Username</Form.Label>
+            <label className = {style.LoginLabel}>Enter Username</label>
             <Form.Control type="username" placeholder="Enter username"
               name="username"
               value={this.state.username} 
@@ -62,7 +62,7 @@ class Login extends Component {
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+            <label className = {style.LoginLabel}>Password</label>
             <Form.Control type="password" placeholder="Password"
               name="password"
               value={this.state.password} 

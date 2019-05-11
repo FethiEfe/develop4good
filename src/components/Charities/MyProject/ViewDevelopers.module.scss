@@ -1,0 +1,75 @@
+@media (min-width: 901px){
+    .Body{
+        display:flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .Card {
+        // border: 1px solid red;
+        // width : 40vw;
+        // height: 40vh;
+        // display: flex;
+	    // flex-direction: row;
+	    // flex-wrap: wrap;
+	    // justify-content: space-between;
+        // align-items: center;
+        font-family: cursive; 
+        margin: 20vh 1vw 5vh 1vw; 
+        border: 3px solid whitesmoke;
+        width: 65vw;
+        height: 50vh;
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
+        border-radius: 10px;
+    }
+
+    .Image {
+        border: 10px solid #e0d8d896;
+        border-bottom: 30px solid #e0d8d896;
+        padding: 0px 0px 0px 0px;
+        width: 15vw;
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
+        margin: 2vh 25vw 2vh 25vw;
+       
+    }
+
+    .Name {
+        text-align: center;
+    }
+   
+}
+
+@media (max-width: 900px){
+    .Body{
+        display:flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .Card {
+        font-family: cursive; 
+        margin: 20vh 1vw 5vh 1vw; 
+        border: 3px solid whitesmoke;
+        width: 65vw;
+        height: 50vh;
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
+        border-radius: 10px;
+    }
+
+    .Image {
+        border: 10px solid #e0d8d896;
+        border-bottom: 30px solid #e0d8d896;
+        padding: 0px 0px 0px 0px;
+        width: 15vw;
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
+        margin: 2vh 25vw 2vh 25vw;
+       
+    }
+
+    .Name {
+        text-align: center;
+    }
+   
+}

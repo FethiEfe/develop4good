@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
+import style from "./SupportCommunity.module.scss"
 
 const SupportCommunity = () => {
     const publishableKey = "pk_test_1WvbqD4kUSFbv6WUP9o1VddT00mAqXvqJJ";
@@ -33,6 +34,7 @@ const SupportCommunity = () => {
         stripeKey={publishableKey}
         // image="https://www.vidhub.co" //Pop-in header image
         billingAddress={false}
+        
       />
     );
   };

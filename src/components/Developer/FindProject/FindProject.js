@@ -37,7 +37,7 @@ class FindProject extends Component {
           projects: res.data,
           
         })
-        console.log(res.data)
+        
       })
       .catch(err => {
         console.log(`Something went wrong with displayProjects ${err}`)
@@ -54,7 +54,7 @@ class FindProject extends Component {
           <h3 className = {style.Title}>{element.title.length < 40 ? `${element.title}` : `${element.title.substring(0,40)}...`}</h3>
         
           <h5 className = {style.Skills}><span>Skills Required: </span>{element.skills_req.length <35 ? `${element.skills_req}` : `${element.skills_req.substring(0,45)}...`}</h5>
-          {element.num_dev == 1 ? <h5>{element.num_dev} developer needed for this project</h5>
+          {element.num_dev == 1 ? <h5 className = {style.NumDev}>{element.num_dev} developer needed for this project</h5>
           :<h5 className = {style.NumDev}>{element.num_dev} developers needed for this project</h5>}
           
           <Link to ={{ pathname: `/dev/findproject/${element.project_id}`}}>

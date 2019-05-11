@@ -58,7 +58,10 @@ export function logout() {
 export function updateMyProfileInfo(id, first_name, last_name, email, linkedin, skills) {
     return {
         type: UPDATE_MY_PROFILE_INFO,
-        payload: axios.put("/api/updateprofile", { id, first_name, last_name, email, linkedin, skills })
+        payload: axios.put("/api/updateprofile", { id, first_name, last_name, email, linkedin, skills }).then(result => {
+            console.log(result)
+            return result
+        })
     }
 }
 
@@ -138,6 +141,7 @@ export default function reducer(state = initialState, action) {
             
         // updating developers profile
         case `${UPDATE_MY_PROFILE_INFO}_FULFILLED`:
+        console.log(action.payload)
         return {
                 ...state,
                 first_name: action.payload.data.first_name,
@@ -176,6 +180,7 @@ export default function reducer(state = initialState, action) {
         }
 
         case `${GET_SESSION}_FULFILLED` :
+        console.log(`session ${action.payload.data.id}`)
         return {
             ...state,
             username: action.payload.data.username,
