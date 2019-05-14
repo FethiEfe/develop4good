@@ -279,9 +279,10 @@ main = async (req, res) => {
 
     let testAccount = await nodemailer.createTestAccount();
     let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
+        // host: "smtp.ethereal.email",
+        // port: 587,
+        // secure: false, // true for 465, false for other ports
+        service: "gmail",
         auth: {
             user: process.env.EMAIL, // generated ethereal user
             pass: process.env.PASSWORD // generated ethereal password
@@ -291,8 +292,8 @@ main = async (req, res) => {
         from: req.body.email, // sender address
         to: "f.akcay1@windowslive.com", // list of receivers
         subject: req.body.subject, // Subject line
-        text: req.body.message, // plain text body
-        html: req.body.message // html body
+        text: `${req.body.name} (${req.body.email}) says: ${req.body.message}`// plain text body
+        // html: req.body.message // html body
     });
     res.status(200).json("ok")
     console.log("Message sent: %s", info.messageId);
