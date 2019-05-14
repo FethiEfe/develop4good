@@ -58,10 +58,7 @@ export function logout() {
 export function updateMyProfileInfo(id, first_name, last_name, email, linkedin, skills) {
     return {
         type: UPDATE_MY_PROFILE_INFO,
-        payload: axios.put("/api/updateprofile", { id, first_name, last_name, email, linkedin, skills }).then(result => {
-            console.log(result)
-            return result
-        })
+        payload: axios.put("/api/updateprofile", { id, first_name, last_name, email, linkedin, skills })
     }
 }
 
@@ -131,17 +128,30 @@ export default function reducer(state = initialState, action) {
         case `${LOGOUT}_FULFILLED`:
         
             return {
+                
                 username: "",
-                email: "",
                 id: "",
+                first_name: "",
+                last_name: "",
+                email: "",
+                linkedin: "",
+                skills: "",
+                img:"",
+                
+                charUsername:"",
                 char_id: "",
+                charemail: "",
+                nameOfOrganization: "",
+                website: "",
+                charLinkedin: "",
+                mission: "",
+                charimg: "",
                 isLogedIn: false
             }
 
             
         // updating developers profile
         case `${UPDATE_MY_PROFILE_INFO}_FULFILLED`:
-        console.log(action.payload)
         return {
                 ...state,
                 first_name: action.payload.data.first_name,
@@ -166,7 +176,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 nameOfOrganization: action.payload.data.nameOfOrganization,
                 website: action.payload.data.website,
-                charemail: action.payload.data.email,
+                charemail: action.payload.data.charemail,
                 charLinkedin: action.payload.data.charLinkedin,
                 mission: action.payload.data.mission
                 
@@ -180,11 +190,9 @@ export default function reducer(state = initialState, action) {
         }
 
         case `${GET_SESSION}_FULFILLED` :
-        console.log(`session ${action.payload.data.id}`)
         return {
             ...state,
             username: action.payload.data.username,
-            email: action.payload.data.email,
             id: action.payload.data.id,
             first_name: action.payload.data.first_name,
             last_name: action.payload.data.last_name,

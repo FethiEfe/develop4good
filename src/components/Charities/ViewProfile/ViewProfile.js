@@ -52,7 +52,9 @@ class ViewProfile extends Component {
         const { char_id } = this.props.auth
         const { nameOfOrganization, website, email, charLinkedin, mission } = this.state
         e.preventDefault();
-        this.props.updateCharProfileInfo(char_id, nameOfOrganization, website, email, charLinkedin, mission)
+        this.props.updateCharProfileInfo(char_id, nameOfOrganization, website, email, charLinkedin, mission).then(() => {
+            alert("You successfully updated your profile")
+        })
     }
 
     handleFileUpload = (event) => {
@@ -107,6 +109,7 @@ class ViewProfile extends Component {
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
                         <Col>
+                            
                             <Form.Control placeholder=" Name of Organization"
                                 name="nameOfOrganization"
                                 value={this.state.nameOfOrganization}
@@ -114,6 +117,7 @@ class ViewProfile extends Component {
                                 required />
                         </Col>
                         <Col>
+                          
                             <Form.Control placeholder="Website address"
                                 name="website"
                                 value={this.state.website}

@@ -61,31 +61,32 @@ const uploadFile = (buffer, name, type) => {
 
 
 
-
-app.get("/auth/developers", Controller.getAllDevelopers)
 app.post("/auth/developers", Controller.signupDev)
 app.post("/auth/signupchar", Controller.signupChar)
-
 app.post("/auth/login", Controller.login)
 app.get("/auth/logout", Controller.logout)
 
+app.get("/auth/developers", Controller.getAllDevelopers)
+
+
 app.put("/api/updateprofile", Controller.updateMyProfileInfo)
 app.get("/api/getprofile/:id", Controller.getDevProfilePic)
+app.post(`/api/postproject/:char_id`, Controller.postProject)
 
 app.put("/api/updatecharprofile", Controller.updateCharProfileInfo)
 app.get(`/api/getcharprofile/:id`, Controller.getCharProfilePic)
-
-app.post(`/api/postproject/:char_id`, Controller.postProject)
-
 app.get(`/api/displayprojects`, Controller.displayProjects)
 app.get(`/dev/displayprojects/:project_id`, Controller.displayProject)
 app.post(`/api/applyproject/:dev_id/:project_id/:char_id`, Controller.applyProject)
 app.get(`/dev/appliedprojects/:dev_id`, Controller.appliedProject)
 app.delete(`/dev/deleteproject/:project_id`, Controller.withdrawalProject)
+
+
 app.get("/char/myprojects/:char_id", Controller.getCharProject)
 app.get(`/char/getdevnumint/:project_id`, Controller.getInterestedDevNum)
 app.post(`/api/contact`, Controller.main)
 app.get("/auth/cookie", Controller.getSession)
+app.delete(`/char/deleteproject/:project_id`, Controller.deleteProject)
 
 
 

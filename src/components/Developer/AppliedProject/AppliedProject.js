@@ -91,7 +91,8 @@ class AppliedProject extends Component {
     })
     return (
       <div className={style.Body}>
-        {list}
+        {(this.state.applied_projects.length === 0) ? <h2 style = {{marginTop : "20vh", color: "red"}}>You have not applied to any project yet</h2> :   list}
+        
       </div>
 
 

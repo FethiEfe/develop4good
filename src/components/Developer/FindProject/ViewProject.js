@@ -71,7 +71,7 @@ import {Button} from "react-bootstrap"
       }
         return(
             <div className ={style.Body}>
-                <img src = {list.charimg} className ={style.Image}/>
+                <img src = {list.charimg} className ={style.Image} alt=""/>
                 <h1 className ={style.NameOfOrganization}>{list.nameoforganization}</h1>
                 <h3>Our Mission:</h3>
                 <p className ={style.Mission}>{list.mission}</p>

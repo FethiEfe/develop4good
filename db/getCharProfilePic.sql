@@ -1,2 +1,2 @@
-SELECT charimg FROM charities
+SELECT * FROM charities
 WHERE char_id = $1

@@ -27,16 +27,17 @@ class MyProfile extends Component {
 
   componentDidMount(){
     
-    this.props.getSession().then(() => {
-
-      // this.setState({
-      //   first_name: this.props.auth.first_name,
-      //   last_name: this.props.auth.last_name,
-      //   email: this.props.auth.email,
-      //   linkedin: this.props.auth.linkedin,
-      //   skills: this.props.auth.skills,
-      //   img: this.props.auth.img
-      // })
+    this.props.getSession()
+    .then((result) => {
+     
+      this.setState({
+        first_name: result.value.data.first_name,
+        last_name: result.value.data.last_name,
+        email: result.value.data.email,
+        linkedin: result.value.data.linkedin,
+        skills: result.value.data.skills,
+        img: result.value.data.img
+      })
       
       if(!this.props.auth.id){
         this.setState({
@@ -57,21 +58,10 @@ class MyProfile extends Component {
     const { first_name, last_name, email, linkedin, skills } = this.state
     const { id } = this.props.auth
     e.preventDefault();
-    this.props.updateMyProfileInfo(id, first_name, last_name, email, linkedin, skills)
-    .then(result =>{
-      console.log(result.value.data)
-      this.setState({
-        first_name: result.value.data.first_name,
-        last_name: result.value.data.last_name,
-        email: result.value.data.email,
-        linkedin: result.value.data.linkedin,
-        skills: result.value.data.skills,
-        // img: result.value.data.img
-      })
-      console.log(this.state)
-      console.log(this.props.auth.last_name)
-    })
-   
+    this.props.updateMyProfileInfo(id, first_name, last_name, email, linkedin, skills).then(() => {
+      alert("You successfully updated your profile")
+    });
+    
   }
   
   handleFileUpload = (event) => {
@@ -115,7 +105,8 @@ class MyProfile extends Component {
           <div className={style.Image}>
 
             <img src={this.state.img}
-                 onClick = {() => this.fileInput.click()} />
+                 onClick = {() => this.fileInput.click()} 
+                 alt =""/>
             <input type="file" 
                    onChange={this.handleFileUpload} 
                    style = {{display : "none"}}

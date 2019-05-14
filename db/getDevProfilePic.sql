@@ -1,2 +1,2 @@
-SELECT img FROM developers
+SELECT * FROM developers
 WHERE id = $1

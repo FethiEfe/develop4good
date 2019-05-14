@@ -50,7 +50,7 @@ class FindProject extends Component {
     const list = this.state.projects.map((element, index) => {
       return (
         <div  key = {index} className = {style.Card}  >
-          <img  src= {element.charimg} />
+          <img  src= {element.charimg} alt=""/>
           <h3 className = {style.Title}>{element.title.length < 40 ? `${element.title}` : `${element.title.substring(0,40)}...`}</h3>
         
           <h5 className = {style.Skills}><span>Skills Required: </span>{element.skills_req.length <35 ? `${element.skills_req}` : `${element.skills_req.substring(0,45)}...`}</h5>

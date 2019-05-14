@@ -45,51 +45,56 @@ class SignupChar extends Component {
     }
 
     render() {
+        console.log(this.props.auth.id)
         return (
-            <div className = {style.Body}>
-                
-                <Form className={style.Form} onSubmit = {this.handleSubmit}>
-                    <Form.Group controlId="formBasicEmail" id = "label-username">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="text"
-                            placeholder="Enter username"
-                            onChange={this.handleChange}
-                            name="username"
-                            value={this.state.username} />
-                    </Form.Group>
+           
+                <div className = {style.Body}>
+                    <Form className={style.Form} onSubmit = {this.handleSubmit}>
+                        <h2 style ={{textAlign: "center"}}>Increase effectiveness and efficiency through us!</h2>
+                        <Form.Group controlId="formBasicEmail" id = "label-username">
+                        <label style ={{display: "block", color: "black"}}>Username</label>
+                            <Form.Control type="text"
+                                placeholder="Enter username"
+                                onChange={this.handleChange}
+                                name="username"
+                                value={this.state.username} />
+                        </Form.Group>
 
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email"
-                            placeholder="Enter email"
-                            onChange={this.handleChange}
-                            name="email"
-                            value={this.state.email}
-                            required />
-                    </Form.Group>
+                        <Form.Group controlId="formBasicEmail">
+                        <label style ={{display: "block", color: "black"}}>Email</label>
+                            <Form.Control type="email"
+                                placeholder="Enter email"
+                                onChange={this.handleChange}
+                                name="email"
+                                value={this.state.email}
+                                required />
+                                <Form.Text className="text-muted">
+                                     We'll never share your email with anyone else.
+                                </Form.Text>
+                        </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password"
-                            placeholder="Password"
-                            onChange={this.handleChange}
-                            name="password"
-                            value={this.state.password} />
-                    </Form.Group>
+                        <Form.Group controlId="formBasicPassword">
+                        <label style ={{display: "block", color: "black"}}>Password</label>
+                            <Form.Control type="password"
+                                placeholder="Password"
+                                onChange={this.handleChange}
+                                name="password"
+                                value={this.state.password} />
+                        </Form.Group>
 
-                    <Button variant="primary" type="submit">
-                        Signup
-                    </Button>
-                    {this.state.getError ? <h5>Username is taken</h5> : null}
-                    <br />
-                    {this.state.isSignedUp ? <Link to="/login">You successfully signed up. Click to Login </Link> : null}
-                </Form>
-            </div>
-
-
+                        <Button variant="primary" type="submit">
+                            Signup
+                        </Button>
+                        {this.state.getError ? <h5>Username is taken</h5> : null}
+                        <br />
+                        {this.state.isSignedUp ? <Link to="/login">You successfully signed up. Click to Login </Link> : null}
+                    </Form>
+                    
+                </div>
+            
 
         )
     }
 }
-
-export default SignupChar
+const mapStateToProps = Reduxstate => Reduxstate
+export default connect(mapStateToProps)(SignupChar);

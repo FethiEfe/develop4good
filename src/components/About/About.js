@@ -7,8 +7,8 @@ class About extends Component {
 
     return (
       <div className = {style.About} >
-          <img src = {pic}/>
-          <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+          <img src = {pic} alt =""/>
+          <p>In the 21st century, technology is advancing and globalization is inevitable. So in order to bring our charities up to date, our group is solely focused on providing non-profit service through our volunteer of developers. We strongly believe our mission of bringing charities and web developers together to have a greater impact on humanity as whole.</p>
           
       </div>
     );

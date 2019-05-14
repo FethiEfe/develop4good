@@ -23,12 +23,9 @@ const signupDev = async (req, res) => {
 
     if (existingUser.length > 0 || existingChar.length > 0) {
         res.status(400).json("Username is taken")
-        // res.sendStatus(400);
     } else {
-
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(password, salt);
-
         const registeredUser = await db.addDeveloper([username, email, hash]);
         const user = registeredUser[0];
 
@@ -87,7 +84,6 @@ login = async (req, res) => {
         if (isMatch) {
             req.session.user = {
                 username: results[0].username,
-                email: results[0].email,
                 id: results[0].id,
                 first_name: results[0].first_name,
                 last_name: results[0].last_name,
@@ -145,15 +141,16 @@ updateMyProfileInfo = async (req, res) => {
     const db = req.app.get("db")
     const newProfileInfo = await db.edit_profile_info([id, first_name, last_name, email, linkedin, skills])
     req.session.user = {
+        username: newProfileInfo[0].username,
+        id: newProfileInfo[0].id,
+        img: newProfileInfo[0].img,
         first_name: newProfileInfo[0].first_name, 
         last_name: newProfileInfo[0]. last_name, 
         email: newProfileInfo[0].email, 
         linkedin: newProfileInfo[0].linkedin , 
         skills: newProfileInfo[0].skills
     }
-    console.log(newProfileInfo[0])
-    console.log(`req.session.user${req.session.user.last_name}`)
-    res.status(200).json(newProfileInfo[0])
+    res.status(200).json(req.session.user)
 }
 
 getDevProfilePic = async (req, res) => {
@@ -162,6 +159,13 @@ getDevProfilePic = async (req, res) => {
     const newProfilePic = await db.getDevProfilePic(id)
     req.session.user = {
         img: newProfilePic[0].img,
+        username: newProfilePic[0].username,
+        id: newProfilePic[0].id,
+        first_name: newProfilePic[0].first_name, 
+        last_name: newProfilePic[0]. last_name, 
+        email: newProfilePic[0].email, 
+        linkedin: newProfilePic[0].linkedin , 
+        skills: newProfilePic[0].skills
     }
     res.json(req.session.user)
 }
@@ -171,13 +175,14 @@ updateCharProfileInfo = async (req, res) => {
     const db = req.app.get("db")
     const newCharProfileInfo = await db.editCharProfileInfo([char_id, nameOfOrganization, website, email, charLinkedin, mission])
     req.session.user = {
-
+        username: newCharProfileInfo[0].username,
+        char_id: newCharProfileInfo[0].char_id,
         nameOfOrganization: newCharProfileInfo[0].nameoforganization,
         website: newCharProfileInfo[0].website,
-        email: newCharProfileInfo[0].email,
+        charemail: newCharProfileInfo[0].email,
         charLinkedin: newCharProfileInfo[0].charlinkedin,
-        mission: newCharProfileInfo[0].mission
-
+        mission: newCharProfileInfo[0].mission,
+        charimg: newCharProfileInfo[0].charimg,
     }
     res.json(req.session.user)
 
@@ -189,6 +194,13 @@ getCharProfilePic = async (req, res) => {
     const db = req.app.get("db")
     const newProfilePic = await db.getCharProfilePic(id)
     req.session.user = {
+        username: newProfilePic[0].username,
+        char_id: newProfilePic[0].char_id,
+        nameOfOrganization: newProfilePic[0].nameoforganization,
+        website: newProfilePic[0].website,
+        charemail: newProfilePic[0].email,
+        charLinkedin: newProfilePic[0].charlinkedin,
+        mission: newProfilePic[0].mission,
         charimg: newProfilePic[0].charimg,
     }
 
@@ -271,17 +283,18 @@ main = async (req, res) => {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-            user: "caden.schmitt@ethereal.email", // generated ethereal user
-            pass: "MdayZt2JHbQM2MTRaU" // generated ethereal password
+            user: process.env.EMAIL, // generated ethereal user
+            pass: process.env.PASSWORD // generated ethereal password
         }
     });
     let info = await transporter.sendMail({
         from: req.body.email, // sender address
-        to: "f.akcay1@gmail.com", // list of receivers
+        to: "f.akcay1@windowslive.com", // list of receivers
         subject: req.body.subject, // Subject line
         text: req.body.message, // plain text body
         html: req.body.message // html body
     });
+    res.status(200).json("ok")
     console.log("Message sent: %s", info.messageId);
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 }
@@ -290,19 +303,31 @@ getSession = async (req, res) => {
     const { session } = req;
     if (!session.user) {
         session.user = {
-            username: "" ,
-            email: "",
+            username: "",
             id: "",
-            first_name:"" ,
-            last_name:"" ,
+            first_name: "",
+            last_name: "",
             email: "",
             linkedin: "",
-            skills:"" ,
-            img: ""
+            skills: "",
+            img: "",
+            char_id: "",
+            nameOfOrganization: "",
+            website: "",
+            charemail: "",
+            mission:"",
+            charimg:"",
         };
     }
     res.json(session.user);
     
+}
+
+deleteProject = async (req,res) => {
+    const { project_id } = req.params
+    const db = req.app.get("db")
+    const result = await db.deleteProject(project_id)
+    res.status(200).json(result)
 }
 
 module.exports = {
@@ -325,6 +350,7 @@ module.exports = {
     getInterestedDevNum,
     main,
     getSession,
+    deleteProject,
 
 
 }

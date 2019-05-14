@@ -44,8 +44,9 @@ class SignupDev extends Component {
         return (
             <div className={style.Body}>
                 <Form className={style.Form} onSubmit={this.handleSubmit}>
+                <h2 style ={{textAlign: "center"}}>Gain experience, have an impact!</h2>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Username</Form.Label>
+                        <label style ={{display: "block", color: "black"}}>Username</label>
                         <Form.Control type=""
                             placeholder="Enter username"
                             onChange={this.handleChange}
@@ -53,7 +54,7 @@ class SignupDev extends Component {
                             value={this.state.username} />
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
+                    <label style ={{display: "block", color: "black"}}>Email</label>
                         <Form.Control type="email"
                             placeholder="Enter email"
                             onChange={this.handleChange}
@@ -66,7 +67,7 @@ class SignupDev extends Component {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                    <label style ={{display: "block", color: "black"}}>Password</label>
                         <Form.Control type="password"
                             placeholder="Password"
                             onChange={this.handleChange}

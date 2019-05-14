@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import pic from "./404.jpg"
+import style from "./ErrorPage.module.scss"
 
 class ErrorPage extends Component {
   render() {
 
     return (
       <div className = "ErrorPage" >
-        error mathafucka
+        <img src ={pic} className ={style.Error} alt =""/>
       </div>
     );
 

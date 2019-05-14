@@ -1,18 +1,32 @@
 import React,{Component} from 'react'
 import axios from "axios"
 import style from "./ViewDevelopers.module.scss"
-import {Link} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
+import { connect } from "react-redux"
+import {getSession} from "../../../redux/ducks/auth"
 
 class ViewDevelopers extends Component{
     constructor(){
         super();
         this.state ={
-            numDevInterested : []
+            numDevInterested : [],
+            redirect: false,
         }
     }
     componentDidMount(){
         const project_id = this.props.match.params.project_id
         this.getInterestedDevNum(project_id);
+        this.props.getSession()
+        .then(() => {
+         
+            if (!this.props.auth.char_id) {
+                this.setState({
+                    redirect: true
+                })
+            }
+        
+        })
+       
     }
 
     getInterestedDevNum = (project_id) => {
@@ -31,13 +45,19 @@ class ViewDevelopers extends Component{
 
 
     render(){
+        if (this.state.redirect) {
+            return <Redirect to='/login' />
+        }
         const developer = this.state.numDevInterested.map((developer, index) => {
             return(
                 <div key = {index} className = {style.Card}>
                     <img src = {developer.img} className ={style.Image}/>
                     <h3 style ={{textAlign: "center"}}>{developer.first_name} {developer.last_name}</h3>
                     <h3 style ={{textAlign: "center"}}><span>Skills: </span>{developer.skills}</h3>
-                    <h3 style ={{textAlign: "center"}}><span>Linkedin: </span>{developer.linkedin}</h3>
+                    <h3 style ={{textAlign: "center"}}><span>Linkedin: </span><a href = {developer.linkedin} target ="_blank">{developer.linkedin}</a></h3>
+                    
+                    
+                   
                     
                     <h3 style ={{textAlign: "center"}}><span>Email: </span>{developer.email}</h3>
                 </div>
@@ -45,11 +65,12 @@ class ViewDevelopers extends Component{
         })
         return(
             <div className ={style.Body}>
-                
-                    {developer}
+                {(this.state.numDevInterested.length === 0) ? <h2 style = {{marginTop : "20vh", color: "red"}}>No one applied to your project yet!</h2> :   developer}
+                 
                 
             </div>
         )
     }
 }
-export default ViewDevelopers
+const mapStateToProps = Reduxstate => Reduxstate
+export default connect(mapStateToProps, {getSession})(ViewDevelopers)

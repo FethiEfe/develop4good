@@ -3,6 +3,8 @@ import { Form, ButtonToolbar, Button } from "react-bootstrap"
 import style from "./PostProject.module.scss"
 import axios from "axios"
 import { connect } from "react-redux"
+import {Redirect} from "react-router-dom"
+import {getSession} from "../../../redux/ducks/auth"
 
 
 class PostProject extends Component {
@@ -12,9 +14,23 @@ class PostProject extends Component {
             title: "",
             numDev: "",
             skillsReq: "",
-            text: ""
+            text: "",
+            redirect: false,
         }
     }
+
+    componentDidMount(){
+        this.props.getSession()
+        .then(() => {
+            if (!this.props.auth.char_id) {
+                this.setState({
+                    redirect: true
+                })
+            }
+
+        })
+    }
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -23,9 +39,9 @@ class PostProject extends Component {
     }
 
     handleSubmit = (e) => {
-        console.log("clicked")
         e.preventDefault();
         const { char_id } = this.props.auth
+        console.log(char_id)
         const { title, numDev, skillsReq, text } = this.state
         axios
             .post(`/api/postproject/${char_id}`, { title, numDev, skillsReq, text })
@@ -46,6 +62,9 @@ class PostProject extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to='/login' />
+        }
         return (
             <div className={style.PostProject}>
                 <h2 style ={{textAlign:"center"}}>Post Project</h2>
@@ -102,4 +121,4 @@ class PostProject extends Component {
     }
 }
 const mapStateToProps = Reduxstate => Reduxstate
-export default connect(mapStateToProps)(PostProject)
+export default connect(mapStateToProps, {getSession})(PostProject)

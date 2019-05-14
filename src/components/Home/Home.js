@@ -10,7 +10,7 @@ class Home extends Component {
       <div className = {style.Home} >
           
           
-          <h1 className = {style.Text}>We bring Junior developers and charity organizations together for a cause</h1>
+          <h1 className = {style.Text}>We bring Web developers and non-profit organizations together for a cause</h1>
           <Link to = "/signupdev">
               <button className = {style.Button1}>Developers Sign Up Here</button>
           </Link>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import style from "./Contact.module.scss";
 import { Form, Row, Col, Button } from "react-bootstrap"
 import axios from "axios"
+import {Redirect} from "react-router-dom"
 
 class Contact extends Component {
   constructor(){
@@ -24,6 +25,10 @@ class Contact extends Component {
     const {name, email, message, subject} = this.state
     axios
     .post(`/api/contact`, {name, email, message, subject})
+    .then(() => {
+      alert("Sent")
+    })
+    
   }
   
 
