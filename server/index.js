@@ -12,11 +12,13 @@ const bodyParser = require("body-parser");
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY, AWS_BUCKET_NAME } = process.env
 const Controller = require("./controller/Controller")
 const bcrypt = require("bcryptjs")
+const path = require('path'); 
 
 
 
 const app = express()
 app.use(express.json())
+app.use( express.static( `${__dirname}/../build` ) );
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -134,7 +136,9 @@ app.put('/api/updatecharprofilepic/:char_id', (request, response) => {
   });
 })
 
-
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 app.listen(SERVER_PORT, () => {
   console.log(`I am listening on ${SERVER_PORT}`)
