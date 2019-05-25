@@ -68,7 +68,7 @@ class Login extends Component {
               value={this.state.password} 
               onChange = {this.handleChange}/>
           </Form.Group>
-          {this.state.getError ? <h3>Username or password is wrong</h3>: null}
+          {this.state.getError ? <h3 className = {style.loginError}>Username or password is wrong</h3>: null}
           <div className={style.Buttons}>
         
               <Button variant="primary" type="submit" >Login</Button>

@@ -42,7 +42,7 @@ class Contact extends Component {
             <Row>
               <Col>
                 <label className = {style.MailLables}>Full Name:</label>
-                <Form.Control placeholder="Albus Percival Wulfric Brian Dumbledore" 
+                <Form.Control placeholder="" 
                               name = "name"
                               value = {this.state.name}
                               onChange = {this.handleChange}/>
@@ -53,7 +53,7 @@ class Contact extends Component {
             <Row>
               <Col>
                 <label  className = {style.MailLables}>Subject:</label>
-                <Form.Control placeholder="About WizardApp" 
+                <Form.Control placeholder="" 
                               name = "subject"
                               value = {this.state.subject}
                               onChange = {this.handleChange}/>
@@ -64,7 +64,7 @@ class Contact extends Component {
           <Form.Group controlId="exampleForm.ControlInput1">
             <label  className = {style.MailLables}>Email address:</label>
             <Form.Control type="email" 
-                          placeholder="dumbledore@hogwarts.edu"
+                          placeholder=""
                           name = "email"
                           value = {this.state.email}
                           onChange = {this.handleChange} />
@@ -75,7 +75,7 @@ class Contact extends Component {
           <Form.Group controlId="exampleForm.ControlTextarea1">
             <label  className = {style.MailLables}>Your Message:</label>
             <Form.Control as="textarea" 
-                          placeholder="Dear Muggle Developers I really appreciate your efforts in creating our WizardApp. It's really making a difference. Albus " 
+                          placeholder="" 
                           rows="3" 
                           name ="message"
                           value = {this.state.message}

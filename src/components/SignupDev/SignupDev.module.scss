@@ -1,3 +1,67 @@
+@media screen and (max-width: 450px){
+	.Body{
+		// border: 1px solid red;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: space-around; 
+	}
+	.Form {
+		// border: 1px solid red;
+		height: 70vh;
+		width: 70vw;
+		// margin: 25vh 15vw 25vh 15vw;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: space-around; 
+
+		h2{
+			display: none;
+		}
+		
+	
+	}
+}
+@media screen and (min-width: 451px) and (max-width: 1024px){
+	.Body{
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: space-around; 
+	}
+	.Form {
+		
+		height: 50vh;
+		width: 50vw;
+		margin: 25vh 25vw 25vh 25vw;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: space-around; 
+	
+	}
+}
+@media screen and (min-width: 1025px) {
+	.Body{
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: space-around; 
+	}
+	.Form {
+		
+		height: 50vh;
+		width: 50vw;
+		margin: 25vh 25vw 25vh 25vw;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: space-around; 
+	
+	}
+    
+} 
 .Body{
     display: flex;
 	flex-direction: column;

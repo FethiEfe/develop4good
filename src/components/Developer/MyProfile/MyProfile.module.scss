@@ -3,8 +3,8 @@
         
         position: absolute;
         width: 70vw;
-        height: 70vh;
-        margin: 20vh 15vw 25vh 15vw;
+        height: 100vh;
+        margin: 15vh 15vw 25vh 15vw;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -15,7 +15,7 @@
         Form {
             border: 3px solid grey;
             border-radius: 10px;
-            width: 70vw;
+            width: 90vw;
             height: 55vh;
             display: flex;
             flex-direction: column;
@@ -24,6 +24,8 @@
             align-items: center;
             box-shadow: 10px 10px 5px rgba(0,0,0,0.15);
             margin-top: 5vh;
+            padding-left: 2vw;
+            padding-right: 2vw;
             
 
 

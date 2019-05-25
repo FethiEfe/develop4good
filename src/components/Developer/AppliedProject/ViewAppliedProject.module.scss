@@ -1,9 +1,10 @@
+@media screen and (max-width: 500px){
 .Body{
     
     position: absolute;
     margin: 15vh 10vw 5vh 10vw;
     width: 80vw;
-    height: 85vh;
+    // height: 85vh;
     
     display: flex;
 	flex-direction: column;
@@ -14,7 +15,7 @@
     
     .Image{
         
-        margin: 10vh 0vw 0vh 0vw;
+        margin: 5vh 0vw 0vh 0vw;
         width: 30vw;
         height: 25vh;
         
@@ -22,6 +23,8 @@
     }
     .NameOfOrganization{
         margin-top: 0px;
+        text-align: center;
+        font-size: 30px;
         
     }
 
@@ -31,6 +34,7 @@
 
     .Title {
         text-align: center; 
+        color:red;
     }
 
     .Skills {
@@ -39,6 +43,55 @@
 
     .Text {
         text-align: center; 
+        
     }
 
+}
+}
+
+@media screen and (min-width: 501px){
+    .Body{
+    
+        position: absolute;
+        margin: 0vh 10vw 5vh 10vw;
+        width: 80vw;
+        // height: 85vh;
+        
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+       
+        
+        .Image{
+            
+            margin: 10vh 0vw 0vh 0vw;
+            width: 30vw;
+            height: 25vh;
+            
+            border-radius: 10px;
+        }
+        .NameOfOrganization{
+            margin-top: 0px;
+            
+        }
+    
+        .Mission{
+            text-align: center;
+        }
+    
+        .Title {
+            text-align: center; 
+        }
+    
+        .Skills {
+            text-align: center; 
+        }
+    
+        .Text {
+            text-align: center; 
+        }
+    
+    }
 }

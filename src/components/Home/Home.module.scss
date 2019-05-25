@@ -1,5 +1,53 @@
+@media screen and (max-width: 450px){
+    .Home{
+       
+        background-image: url("aboutS.jpg");
+        width: 100vw;
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+       
+    }
 
-@media (max-width: 900px) {
+    .Text {
+        border-radius: 10px;
+        margin: 30vh 5vh 5vh 5vh;
+        background-color: rgba(32, 31, 31, 0.685);
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 1px;
+        font-family: "Times New Roman", Times, serif;
+        font-style: italic;
+    }
+    .Button1{
+        border: 2px solid white;
+        border-radius: 20px;
+        color: white;
+        font-weight: 700;
+        font-size: 15px;
+        background-color: #073C66;
+        margin-bottom: 3vh;
+    }
+
+    .Button2{
+        border: 2px solid white;
+        border-radius: 20px;
+        color: white;
+        font-weight: 700;
+        font-size: 15px;
+        background-color: rgb(195, 236, 176);
+        margin-bottom: 3vh;
+    }
+
+}
+@media screen and (min-width: 451px) and (max-width: 1024px){
     .Home{
        
         background-image: url("aboutS.jpg");
@@ -52,7 +100,7 @@
 }
 
 
-@media (min-width: 901px) {
+@media (min-width: 1025px) {
 
     .Home{
         background-image: url("aboutM.jpg");

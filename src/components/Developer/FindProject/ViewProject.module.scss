@@ -1,3 +1,56 @@
+
+@media screen and (max-width: 500px){
+
+.Body{
+    position: absolute;
+    margin: 10vh 10vw 5vh 10vw;
+    width: 80vw;
+   
+    
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+    align-items: center;
+   
+    
+    .Image{
+        
+        margin: 5vh 0vw 2vh 0vw;
+        width: 50vw;
+        height: 30vh;
+        border-radius: 10px;
+    }
+    .NameOfOrganization{
+        margin-top: 0px;
+        font-size: 30px;
+        text-align: center;
+        
+    }
+
+    .Mission{
+        text-align: center;
+    }
+
+    .Title {
+        text-align: center; 
+        color:red;
+    }
+
+    .Skills {
+        text-align: center; 
+    }
+
+    .Text {
+        text-align: center; 
+    }
+
+}
+
+  }  
+@media screen and (min-width: 501px) {
+        
+
 .Body{
     position: absolute;
     margin: 10vh 10vw 5vh 10vw;
@@ -38,5 +91,7 @@
     .Text {
         text-align: center; 
     }
+
+}
 
 }
