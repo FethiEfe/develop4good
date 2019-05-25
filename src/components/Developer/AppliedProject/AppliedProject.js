@@ -49,8 +49,9 @@ class AppliedProject extends Component {
   }
 
   withdrawalProject = (project_id) => {
+    const { dev_id } = this.state
     axios
-    .delete(`/dev/deleteproject/${project_id}`)
+    .delete(`/dev/deleteproject/${project_id}/${dev_id}`)
     .then(result => {
       console.log(result.data)
     })

@@ -81,7 +81,7 @@ app.get(`/api/displayprojects`, Controller.displayProjects)
 app.get(`/dev/displayprojects/:project_id`, Controller.displayProject)
 app.post(`/api/applyproject/:dev_id/:project_id/:char_id`, Controller.applyProject)
 app.get(`/dev/appliedprojects/:dev_id`, Controller.appliedProject)
-app.delete(`/dev/deleteproject/:project_id`, Controller.withdrawalProject)
+app.delete(`/dev/deleteproject/:project_id/:dev_id`, Controller.withdrawalProject)
 
 
 app.get("/char/myprojects/:char_id", Controller.getCharProject)

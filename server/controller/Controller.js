@@ -254,9 +254,9 @@ appliedProject = async (req, res) => {
 }
 
 withdrawalProject = async (req, res) => {
-    const { project_id } = req.params
+    const { project_id, dev_id } = req.params
     const db = req.app.get("db")
-    const result = await db.withdrawalProject(project_id)
+    const result = await db.withdrawalProject([project_id, dev_id])
    
 }
 
