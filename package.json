@@ -16,7 +16,7 @@
     "file-type": "^10.11.0",
     "massive": "^5.7.7",
     "multiparty": "^4.2.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "nodemailer": "^6.1.1",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.8",
